@@ -1,0 +1,14 @@
+body{
+    background-image: url("../test.jpg");
+}
+.gamesquare{
+    background-image: url("../images/unknown_square.jpg");
+    height: 16px;
+    width: 16px;
+}
+
+table{
+    border-spacing: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
