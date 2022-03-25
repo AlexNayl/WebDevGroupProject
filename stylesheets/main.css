@@ -20,7 +20,7 @@
     background-image: url("../images/bomb_square_64x64.png");
 }
 
-table{
+#gameboard{
     border-spacing: 0px;
     margin-left: auto;
     margin-right: auto;
