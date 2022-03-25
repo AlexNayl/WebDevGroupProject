@@ -1,14 +1,28 @@
-body{
-    background-image: url("../test.jpg");
-}
 .gamesquare{
-    background-image: url("../images/unknown_square.jpg");
-    height: 16px;
-    width: 16px;
+    background-repeat: no-repeat;
+    height: 64px;
+    width: 62px; /* For some reason HTML thinks 64x64 is 64x62 */
+}
+
+.emptysquare{
+    background-image: url("../images/empty_square_64x64.png");
+}
+
+.unknownsquare{
+    background-image: url("../images/unknown_square_64x64.png");
+}
+
+.flagsquare{
+    background-image: url("../images/flag_square_64x64.png");
+}
+
+.bombsquare{
+    background-image: url("../images/bomb_square_64x64.png");
 }
 
 table{
     border-spacing: 0px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 100px;
 }
