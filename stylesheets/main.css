@@ -1,10 +1,11 @@
 .gamesquare{
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     height: 64px;
-    width: 62px; /* For some reason HTML thinks 64x64 is 64x62 */
+    width: 64px;
+    padding: 0px 0px 0px 0px;
 }
 
-.emptysquare{
+.bombsnear0{
     background-image: url("../images/empty_square_64x64.png");
 }
 
@@ -21,8 +22,35 @@
 }
 
 #gameboard{
-    border-spacing: 0px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 100px;
+}
+
+/*
+6 Possible bombs 3x3 area in the game hardcoded css
+*/
+
+.bombsnear1{
+    background-image: url("../images/bombs_near_1_64x64.png");
+}
+
+.bombsnear2{
+    background-image: url("../images/bombs_near_2_64x64.png");
+}
+
+.bombsnear3{
+    background-image: url("../images/bombs_near_3_64x64.png");
+}
+
+.bombsnear4{
+    background-image: url("../images/bombs_near_4_64x64.png");
+}
+
+.bombsnear5{
+    background-image: url("../images/bombs_near_5_64x64.png");
+}
+
+.bombsnear6{
+    background-image: url("../images/bombs_near_6_64x64.png");
 }
