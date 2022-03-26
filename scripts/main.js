@@ -3,6 +3,8 @@ var game;
 	Major To-Dos:
 		Live timer counter
 		Live flag/bomb counter
+		Restart button
+		Highscore handling (Prompt the user for name and add it to a Datebase later)
 */
 class Minesweeper{
 	static MAX_BOMBS_3X3 = 6;
