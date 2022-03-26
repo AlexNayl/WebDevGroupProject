@@ -1,10 +1,13 @@
 var game;
+const MAX_DEPTH = 50; // Infinite recusion can happen and easiest way to prevent it is a max depth
 /*
 	Major To-Dos:
+		Other things than the Minesweeper game
 		Live timer counter
 		Live flag/bomb counter
 		Restart button
 		Highscore handling (Prompt the user for name and add it to a Datebase later)
+		Change board size
 */
 class Minesweeper{
 	static MAX_BOMBS_3X3 = 6;
@@ -64,7 +67,8 @@ class Minesweeper{
 		return gameBoard;
 	}
 
-	clickSquare(square){
+	clickSquare(square, depth=0){
+		if (depth > MAX_DEPTH) { return; }
 		if (!this.started){
 			this.startedTime = Math.round(new Date().getTime() / 1000);
 			this.started = true;
@@ -91,17 +95,19 @@ class Minesweeper{
 		let squareCol = parseInt(square.id[2]);
 		let bombsNear = this.countBombsNear(squareRow, squareCol);
 		if (bombsNear == 0){
-			this.clearNearBy(squareRow, squareCol);
+			this.clearNearBy(squareRow, squareCol, depth + 1);
 		}
 		// Else add number of bombs
 		square.classList.add("bombsnear" + bombsNear.toString());
-		this.checkGameOver()
+		if (!this.gameOver){
+			this.checkGameOver()
+		}
 	}
 
-	clearNearBy(squareRow, squareCol){
+	clearNearBy(squareRow, squareCol, depth){
 		for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.BOARD_SIZE); row++){
 			for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.BOARD_SIZE); col++){
-				this.clickSquare(document.getElementById(row.toString() + "," + col.toString()));
+				this.clickSquare(document.getElementById(row.toString() + "," + col.toString()), depth);
 			}
 		}
 	}
