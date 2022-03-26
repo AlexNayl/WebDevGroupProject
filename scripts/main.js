@@ -1,10 +1,17 @@
 var game;
+/*
+	Major To-Dos:
+		Live timer counter
+		Live flag/bomb counter
+*/
 class Minesweeper{
 	static MAX_BOMBS_3X3 = 6;
 	constructor(BOARD_SIZE, NUM_BOMBS){
 		this.BOARD_SIZE = BOARD_SIZE;
 		this.NUM_BOMBS = NUM_BOMBS;
 		this.bombLocations = [];
+		this.started = false;
+		this.startedTime = 0;
 		this.gameOver = false;
 		this.setup();
 		this.addBombs();
@@ -56,12 +63,21 @@ class Minesweeper{
 	}
 
 	clickSquare(square){
-		if (!inArray(square.classList, "unknownsquare")){
+		if (!this.started){
+			this.startedTime = Math.round(new Date().getTime() / 1000);
+			this.started = true;
+		}
+		if (!(inArray(square.classList, "unknownsquare")) && !(this.gameOver && inArray(square.classList, "flagsquare"))){
 			return;
 		}
 
+		square.classList.remove("unknownsquare");
 		// Incase user clicks on bomb (the !gameOver part is for revealing the entire board)
 		if (inArray(this.bombLocations, square.id)){
+			// If game is over then this is a flag square needs to be removed to allow bomb image
+			if (this.gameOver){
+				square.classList.remove("flagsquare");
+			}
 			square.classList.add("bombsquare");
 			if (!this.gameOver){
 				this.endGame();
@@ -69,14 +85,15 @@ class Minesweeper{
 			return;
 		}
 
-		square.classList.remove("unknownsquare");
 		let squareRow = parseInt(square.id[0]);
 		let squareCol = parseInt(square.id[2]);
 		let bombsNear = this.countBombsNear(squareRow, squareCol);
-
+		if (bombsNear == 0){
+			this.clearNearBy(squareRow, squareCol);
+		}
 		// Else add number of bombs
 		square.classList.add("bombsnear" + bombsNear.toString());
-		
+		this.checkGameOver()
 	}
 
 	clearNearBy(squareRow, squareCol){
@@ -114,15 +131,15 @@ class Minesweeper{
 		}
 	}
 
-	endGame(){
+	endGame(win=false){
 		this.gameOver = true;
-		// TODO: Reveal the board
-		console.log("game over!");
 		for (let i = 0; i < this.BOARD_SIZE; i++){
 			for (let j = 0; j < this.BOARD_SIZE; j++){
-				this.clickSquare(document.getElementById(i.toString() + "," + j.toString()));
+				this.clickSquare(document.getElementById(i.toString() + "," + j.toString()), true);
 			}
 		}
+		let duration = Math.round(new Date().getTime() / 1000) - this.startedTime;
+		console.log("Game Over! Win =", win, "Duration =", duration);
 	}
 
 	addBombs(){
@@ -160,6 +177,22 @@ class Minesweeper{
 			}
 		}
 		return true;
+	}
+
+	checkGameOver(){
+		let unknownOrBombCount = 0;
+		for (let row = 0; row < this.BOARD_SIZE; row++){
+			for (let col = 0; col < this.BOARD_SIZE; col++){
+				let square = document.getElementById(row.toString() + "," + col.toString());
+				if (square.classList.contains("unknownsquare") || square.classList.contains("flagsquare")){
+					unknownOrBombCount++;
+				}
+			}
+		}
+		// If number of unknowns = number of bombs then user has won
+		if (unknownOrBombCount == this.NUM_BOMBS){
+			this.endGame(true);
+		}
 	}
 }
 // Definite Start-Up procedure
