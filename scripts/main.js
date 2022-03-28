@@ -1,28 +1,27 @@
 var game;
-const MAX_DEPTH = 50; // Infinite recusion can happen and easiest way to prevent it is a max depth
 /*
 	Major To-Dos:
 		Other things than the Minesweeper game
 		Live timer counter
 		Live flag/bomb counter
-		Restart button
 		Highscore handling (Prompt the user for name and add it to a Datebase later)
 		Change board size
+	Notes:
+	If there is infinite recursion encountered tell Samuel with a screenshot of the game I think I fixed it not sure
 */
 class Minesweeper{
 	static MAX_BOMBS_3X3 = 6;
 	constructor(BOARD_SIZE, NUM_BOMBS){
 		this.BOARD_SIZE = BOARD_SIZE;
 		this.NUM_BOMBS = NUM_BOMBS;
+		this.setup();
+	}
+
+	setup(){
 		this.bombLocations = [];
 		this.started = false;
 		this.startedTime = 0;
 		this.gameOver = false;
-		this.setup();
-		this.addBombs();
-	}
-
-	setup(){
 		// Setup Board
 		let board = document.getElementById("gameBoard");
 		// if already exists
@@ -47,10 +46,20 @@ class Minesweeper{
 				gameInstance.rightClickSquare(this);
 			}
 		});
+
+		this.addBombs();
 	}
 
 	makeBoard(){
 		let gameDiv = document.getElementById("gameDiv");
+		// Add reset button need null check for reset
+		if (document.getElementById("resetButton") == null){
+			let resetButton = document.createElement("button");
+			resetButton.innerHTML = "Reset Game";
+			gameDiv.appendChild(resetButton);
+			resetButton.setAttribute("id", "resetButton");
+			resetButton.setAttribute("onclick", "reset()");
+		}
 		let gameBoard = document.createElement("table");
 		gameBoard.setAttribute("id", "gameBoard");
 		gameDiv.appendChild(gameBoard);
@@ -67,15 +76,19 @@ class Minesweeper{
 		return gameBoard;
 	}
 
-	clickSquare(square, depth=0){
-		if (depth > MAX_DEPTH) { return; }
+	reset(){
+		this.setup();
+	}
+
+	clickSquare(square){
 		if (!this.started){
 			this.startedTime = Math.round(new Date().getTime() / 1000);
 			this.started = true;
 		}
-		if (!(inArray(square.classList, "unknownsquare")) && !(this.gameOver && inArray(square.classList, "flagsquare"))){
+		if (!(square.classList.contains("unknownsquare")) && !(this.gameOver && square.classList.contains("flagsquare"))){
 			return;
 		}
+
 
 		square.classList.remove("unknownsquare");
 		// Incase user clicks on bomb (the !gameOver part is for revealing the entire board)
@@ -95,7 +108,7 @@ class Minesweeper{
 		let squareCol = parseInt(square.id[2]);
 		let bombsNear = this.countBombsNear(squareRow, squareCol);
 		if (bombsNear == 0){
-			this.clearNearBy(squareRow, squareCol, depth + 1);
+			this.clearNearBy(squareRow, squareCol);
 		}
 		// Else add number of bombs
 		square.classList.add("bombsnear" + bombsNear.toString());
@@ -104,10 +117,10 @@ class Minesweeper{
 		}
 	}
 
-	clearNearBy(squareRow, squareCol, depth){
+	clearNearBy(squareRow, squareCol){
 		for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.BOARD_SIZE); row++){
 			for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.BOARD_SIZE); col++){
-				this.clickSquare(document.getElementById(row.toString() + "," + col.toString()), depth);
+				this.clickSquare(document.getElementById(row.toString() + "," + col.toString()));
 			}
 		}
 	}
@@ -218,4 +231,16 @@ function inArray(array, element){
 		}
 	}
 	return false;
+}
+
+function reset(){
+	//game.reset();
+	clickrandom();
+}
+
+function clickrandom(){
+	game.clickSquare(document.getElementById(Math.floor(Math.random() * 9).toString() + "," + Math.floor(Math.random() * 9).toString()));
+	if (game.gameOver){
+		game.reset();
+	}
 }
