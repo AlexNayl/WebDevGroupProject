@@ -1,9 +1,9 @@
 <template>
+    <button @click="reset">Reset</button>
     <div id="gameDiv"></div>
 </template>
 
 <script>
-    //import Minesweeper from '@/../public/scripts/minesweeper.js';
     import $ from 'jquery';
     class Minesweeper{
         static MAX_BOMBS_3X3 = 6;
@@ -224,7 +224,7 @@
         }
     }
     import '@/../public/stylesheets/main.css';
-    const BOARD_SIZE = 9; // Can change later this represents an 9x9 board
+    const BOARD_SIZE = 9; // Can change later this. Represents an 9x9 board
     const NUM_BOMBS = 10; //
     
     export default {
@@ -239,6 +239,9 @@
             startup: function(){
                 this.game = new Minesweeper(BOARD_SIZE, NUM_BOMBS);
             },
+            reset: function (){
+                this.game.reset();
+            },
             // TODO: ADD BACK inArray not neccessary to be part of game
         }, 
         mounted(){
@@ -249,3 +252,10 @@
         },
     }
 </script>
+
+<style>
+    table{
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
