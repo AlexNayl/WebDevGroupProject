@@ -1,15 +1,25 @@
 <template>
-    <button @click="reset">Reset</button>
+    <p>Flags Placed: {{flagsPlaced}}</p>
+    <p>Bombs: {{bombs}}</p>
+    <p>Time: {{time}}</p>
+    <button @click="reset" id="resetButton">Reset</button>
     <div id="gameDiv"></div>
 </template>
 
 <script>
     import $ from 'jquery';
+    /*
+        Highscore handling (Prompt the user for name and add it to a Datebase later)
+        Change board size
+        Notes:
+        If there is infinite recursion encountered tell Samuel with a screenshot of the game I think I fixed it not sure
+    */
     class Minesweeper{
         static MAX_BOMBS_3X3 = 6;
-        constructor(BOARD_SIZE, NUM_BOMBS){
+        constructor(BOARD_SIZE, NUM_BOMBS, vuePage){
             this.BOARD_SIZE = BOARD_SIZE;
             this.NUM_BOMBS = NUM_BOMBS;
+            this.vuePage = vuePage;
             this.setup();
         }
 
@@ -18,6 +28,15 @@
             this.started = false;
             this.startedTime = 0;
             this.gameOver = false;
+            this.flagsPlaced = 0;
+            this.vuePage.flagsPlaced = this.flagsPlaced;
+            // Setup Display Timer
+            setInterval(() => {
+                if (this.started && !this.gameOver){
+                    this.vuePage.time = Math.round(new Date().getTime() / 1000) - this.startedTime;
+                }
+            }, 1000); // Update timer every second
+
             // Setup Board
             let board = document.getElementById("gameBoard");
             // if already exists
@@ -48,16 +67,9 @@
 
         makeBoard(){
             let gameDiv = document.getElementById("gameDiv");
-            console.log("Game Div", gameDiv);
-            if (!gameDiv){ return; } // TODO: properly handle this
+            let resetButton = document.getElementById("resetButton");
+            if (!gameDiv || !resetButton){ return; } // TODO: properly handle this
             // Add reset button need null check for reset
-            /*if (document.getElementById("resetButton") == null){
-                let resetButton = document.createElement("button");
-                resetButton.innerHTML = "Reset Game";
-                gameDiv.appendChild(resetButton);
-                resetButton.setAttribute("id", "resetButton");
-                resetButton.setAttribute("onclick", "reset()");
-            }*/
             let gameBoard = document.createElement("table");
             gameBoard.setAttribute("id", "gameBoard");
             gameDiv.appendChild(gameBoard);
@@ -144,9 +156,13 @@
             if (this.inArray(square.classList, "unknownsquare")){
                 square.classList.add("flagsquare");
                 square.classList.remove("unknownsquare");
+                this.flagsPlaced++;
+                this.vuePage.flagsPlaced = this.flagsPlaced;
             }else if(this.inArray(square.classList, "flagsquare")){
                 square.classList.remove("flagsquare");
                 square.classList.add("unknownsquare");
+                this.flagsPlaced--;
+                this.vuePage.flagsPlaced = this.flagsPlaced;
             }
         }
 
@@ -157,7 +173,9 @@
                     this.clickSquare(document.getElementById(i.toString() + "," + j.toString()), true);
                 }
             }
+            clearTimeout();
             let duration = Math.round(new Date().getTime() / 1000) - this.startedTime;
+            this.vuePage.time = duration; // just incase
             console.log("Game Over! Win =", win, "Duration =", duration);
         }
 
@@ -232,12 +250,16 @@
         data(){
             return {
                 game: null,
+                flagsPlaced: 0,
+                bombs: 0,
+                time: 0,
             }
         },
         methods: {
             // Start Up Code
             startup: function(){
-                this.game = new Minesweeper(BOARD_SIZE, NUM_BOMBS);
+                this.game = new Minesweeper(BOARD_SIZE, NUM_BOMBS, this);
+                this.bombs = NUM_BOMBS;
             },
             reset: function (){
                 this.game.reset();
