@@ -1,4 +1,4 @@
-var game;
+//var game;
 /*
 	Major To-Dos:
 		Other things than the Minesweeper game
@@ -9,6 +9,7 @@ var game;
 	Notes:
 	If there is infinite recursion encountered tell Samuel with a screenshot of the game I think I fixed it not sure
 */
+import $ from 'jquery'; // Pretty sure this works if `npm i jquery -g`
 class Minesweeper{
 	static MAX_BOMBS_3X3 = 6;
 	constructor(BOARD_SIZE, NUM_BOMBS){
@@ -92,7 +93,7 @@ class Minesweeper{
 
 		square.classList.remove("unknownsquare");
 		// Incase user clicks on bomb (the !gameOver part is for revealing the entire board)
-		if (inArray(this.bombLocations, square.id)){
+		if (this.inArray(this.bombLocations, square.id)){
 			// If game is over then this is a flag square needs to be removed to allow bomb image
 			if (this.gameOver){
 				square.classList.remove("flagsquare");
@@ -131,7 +132,7 @@ class Minesweeper{
 				// Save searching useless spot
 				if (row == squareRow && col == squareCol){ continue; }
 				// if spot if a bomb
-				if (inArray(this.bombLocations, row.toString() + "," + col.toString())){
+				if (this.inArray(this.bombLocations, row.toString() + "," + col.toString())){
 					bombsNear += 1;
 				}
 			}
@@ -143,10 +144,10 @@ class Minesweeper{
 		if (this.gameOver){
 			return;
 		}
-		if (inArray(square.classList, "unknownsquare")){
+		if (this.inArray(square.classList, "unknownsquare")){
 			square.classList.add("flagsquare");
 			square.classList.remove("unknownsquare");
-		}else if(inArray(square.classList, "flagsquare")){
+		}else if(this.inArray(square.classList, "flagsquare")){
 			square.classList.remove("flagsquare");
 			square.classList.add("unknownsquare");
 		}
@@ -215,7 +216,22 @@ class Minesweeper{
 			this.endGame(true);
 		}
 	}
+
+	inArray(array, element){
+		for (let i = 0; i < array.length; i++){
+			if (element == array[i]){
+				return true;
+			}
+		}
+		return false;
+	}
 }
+
+export {
+	Minesweeper,
+}
+
+/*
 // Definite Start-Up procedure
 $(document).ready(function(){
 	// Set up Game
@@ -224,7 +240,7 @@ $(document).ready(function(){
 	game = new Minesweeper(BOARD_SIZE, NUM_BOMBS);
 });
 
-function inArray(array, element){
+function this.inArray(array, element){
 	for (let i = 0; i < array.length; i++){
 		if (element == array[i]){
 			return true;
@@ -244,3 +260,4 @@ function clickrandom(){
 		game.reset();
 	}
 }
+*/
