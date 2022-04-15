@@ -8,6 +8,8 @@
 
 <script>
     import $ from 'jquery';
+    import accessHighscores from '@/../public/scripts/update_highscores.js';
+    // Temp
     /*
         Highscore handling (Prompt the user for name and add it to a Datebase later)
         Change board size
@@ -176,6 +178,7 @@
             clearTimeout();
             let duration = Math.round(new Date().getTime() / 1000) - this.startedTime;
             this.vuePage.time = duration; // just incase
+            accessHighscores.updateHighscores(duration, "name") // TODO: Add username parameter
             console.log("Game Over! Win =", win, "Duration =", duration);
         }
 
@@ -260,6 +263,7 @@
             startup: function(){
                 this.game = new Minesweeper(BOARD_SIZE, NUM_BOMBS, this);
                 this.bombs = NUM_BOMBS;
+                accessHighscores.updateHighscores(5, "abc");
             },
             reset: function (){
                 this.game.reset();
