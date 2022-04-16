@@ -24,7 +24,7 @@ export default {
             let response = await fetch("http://localhost:4500/gethighscores");
             if (response.ok){
                 console.log("Got Highscores!");
-                return await response.json();
+                return (await response.json()).sort(sortHighscores);
             }else{
                 throw response;
             }
@@ -44,4 +44,16 @@ function minesweeperHighScore(duration, boardSize, numBombs){
     let score = Math.ceil(numBombs / boardSize * Math.max(1, (MAX_SCORE_DURATION - duration) * SCORE_DURATION_COEFFICIENT));
     console.log("Score", score);
     return score;
+}
+
+function sortHighscores(hs1, hs2){
+    const games = ["minesweeper", "snake"];
+    let hs1Total = 0;
+    let hs2Total = 0;
+    for (let i = 0; i < games.length; i++){
+        hs1Total += hs1[games[i]];
+        hs2Total += hs2[games[i]];
+    }
+
+    return hs2Total > hs1Total;
 }
