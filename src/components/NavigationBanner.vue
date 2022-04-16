@@ -2,7 +2,8 @@
     <header>
         <nav>
             <router-link to="/">Home</router-link> |
-            <router-link to="/MineSweeper">MineSweeper</router-link>
+            <router-link to="/MineSweeper">MineSweeper</router-link> |
+			<router-link to="/Snake">Snake</router-link>
         </nav>
     </header>
 </template>

@@ -1,7 +1,15 @@
 <template>
     <p>Flags Placed: {{flagsPlaced}}</p>
-    <p>Bombs: {{bombs}}</p>
+    <!--<p>Bombs: {{bombs}}</p>-->
     <p>Time: {{time}}</p>
+    <p id="board-size">Board Size: 9</p>
+    <div>
+        <input type="range" min="6" max="12" value="9" class="slider" id="board-size-slider">
+    </div>
+    <p id="bombs">Bombs: 10</p>
+    <div>
+        <input type="range" min="5" max="50" value="10" class="slider" id="bombs-slider">
+    </div>
     <button @click="reset" id="resetButton">Reset</button>
     <div id="gameDiv"></div>
 </template>
@@ -18,9 +26,9 @@
     */
     class Minesweeper{
         static MAX_BOMBS_3X3 = 6;
-        constructor(BOARD_SIZE, NUM_BOMBS, vuePage){
-            this.BOARD_SIZE = BOARD_SIZE;
-            this.NUM_BOMBS = NUM_BOMBS;
+        constructor(boardSize, numBombs, vuePage){
+            this.boardSize = boardSize;
+            this.numBombs = numBombs;
             this.vuePage = vuePage;
             this.setup();
         }
@@ -75,10 +83,10 @@
             let gameBoard = document.createElement("table");
             gameBoard.setAttribute("id", "gameBoard");
             gameDiv.appendChild(gameBoard);
-            for (let row = 0; row < this.BOARD_SIZE; row++){
+            for (let row = 0; row < this.boardSize; row++){
                 let gameRow = document.createElement("tr");
                 gameBoard.appendChild(gameRow);
-                for (let col = 0; col < this.BOARD_SIZE; col++){
+                for (let col = 0; col < this.boardSize; col++){
                     let gameSquare = document.createElement("td");
                     gameRow.appendChild(gameSquare);
                     gameSquare.setAttribute("id", row.toString() + "," + col.toString());
@@ -130,16 +138,16 @@
         }
 
         clearNearBy(squareRow, squareCol){
-            for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.BOARD_SIZE); row++){
-                for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.BOARD_SIZE); col++){
+            for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.boardSize); row++){
+                for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.boardSize); col++){
                     this.clickSquare(document.getElementById(row.toString() + "," + col.toString()));
                 }
             }
         }
         countBombsNear(squareRow, squareCol){
             let bombsNear = 0;
-            for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.BOARD_SIZE); row++){
-                for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.BOARD_SIZE); col++){
+            for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.boardSize); row++){
+                for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.boardSize); col++){
                     // Save searching useless spot
                     if (row == squareRow && col == squareCol){ continue; }
                     // if spot if a bomb
@@ -170,8 +178,8 @@
 
         endGame(win=false){
             this.gameOver = true;
-            for (let i = 0; i < this.BOARD_SIZE; i++){
-                for (let j = 0; j < this.BOARD_SIZE; j++){
+            for (let i = 0; i < this.boardSize; i++){
+                for (let j = 0; j < this.boardSize; j++){
                     this.clickSquare(document.getElementById(i.toString() + "," + j.toString()), true);
                 }
             }
@@ -184,13 +192,13 @@
 
         addBombs(){
             let possibleLocations = [];
-            for (let i = 0; i < this.BOARD_SIZE; i++){
-                for (let j = 0; j < this.BOARD_SIZE; j++){
+            for (let i = 0; i < this.boardSize; i++){
+                for (let j = 0; j < this.boardSize; j++){
                     possibleLocations.push(i.toString() + "," + j.toString());
                 }
             }
 
-            let bombs2place = this.NUM_BOMBS;
+            let bombs2place = this.numBombs;
             while(bombs2place > 0 && possibleLocations.length > 0){
                 let locIndex = Math.floor(Math.random() * possibleLocations.length);
                 let loc = possibleLocations[locIndex];
@@ -207,8 +215,8 @@
         acceptableBombLoc(loc){
             let squareRow = parseInt(loc[0]);
             let squareCol = parseInt(loc[2]);
-            for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.BOARD_SIZE); row++){
-                for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.BOARD_SIZE); col++){
+            for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.boardSize); row++){
+                for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.boardSize); col++){
                     let bombsNearBy = this.countBombsNear(row, col);
                     // Shoudln't be greater than but just incase
                     if (bombsNearBy >= Minesweeper.MAX_BOMBS_3X3){
@@ -221,8 +229,8 @@
 
         checkGameOver(){
             let unknownOrBombCount = 0;
-            for (let row = 0; row < this.BOARD_SIZE; row++){
-                for (let col = 0; col < this.BOARD_SIZE; col++){
+            for (let row = 0; row < this.boardSize; row++){
+                for (let col = 0; col < this.boardSize; col++){
                     let square = document.getElementById(row.toString() + "," + col.toString());
                     if (square.classList.contains("unknownsquare") || square.classList.contains("flagsquare")){
                         unknownOrBombCount++;
@@ -230,7 +238,7 @@
                 }
             }
             // If number of unknowns = number of bombs then user has won
-            if (unknownOrBombCount == this.NUM_BOMBS){
+            if (unknownOrBombCount == this.numBombs){
                 this.endGame(true);
             }
         }
@@ -245,8 +253,8 @@
         }
     }
     import '@/../public/stylesheets/main.css';
-    const BOARD_SIZE = 9; // Can change later this. Represents an 9x9 board
-    const NUM_BOMBS = 10; //
+    //const BOARD_SIZE = 9; // Can change later this. Represents an 9x9 board
+    //const NUM_BOMBS = 10; //
     
     export default {
         name: "MineSweeperGame",
@@ -254,6 +262,7 @@
             return {
                 game: null,
                 flagsPlaced: 0,
+                boardSize: 0,
                 bombs: 0,
                 time: 0,
             }
@@ -261,9 +270,32 @@
         methods: {
             // Start Up Code
             startup: function(){
-                this.game = new Minesweeper(BOARD_SIZE, NUM_BOMBS, this);
-                this.bombs = NUM_BOMBS;
+                this.boardSize = $("#board-size-slider").val();
+                this.bombs = $("#bombs-slider").val();
+                this.game = new Minesweeper(this.boardSize, this.bombs, this);
                 accessHighscores.updateHighscores(5, "abc");
+
+                $("#board-size-slider").change(() => {
+                    this.updateBoardSize();
+                });
+
+                $("#bombs-slider").change(() => {
+                    this.updateBombs();
+                });
+            },
+            updateBoardSize() {
+                let val = document.querySelector("#board-size-slider").value;
+                this.boardSize = val;
+                this.game.boardSize = val;
+                $("#board-size").text("Board Size: " + val);
+                this.updateBombs(); // Update number of bombs in case we have exceeded max bomb count
+            },
+            updateBombs() {
+                let val = document.querySelector("#bombs-slider").value;
+                val = Math.floor(Math.min(val, this.boardSize * this.boardSize / 3)); // Max number of bombs should be 1/3 board size
+                this.bombs = val;
+                this.game.numBombs = val;
+                $("#bombs").text("Bombs: " + val);
             },
             reset: function (){
                 this.game.reset();
