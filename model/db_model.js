@@ -109,3 +109,18 @@ exports.setHighScore = function(userId, gameName, value) {
         );
     });
 }
+
+// Get all high scores
+exports.getAllHighScores = function(){
+    return new Promise((resolve, reject) => {
+        db.all('SELECT * FROM high_scores', [],
+        (err, data) => {
+            if (err) {
+                console.error('Failed to get all highscores!');
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+}

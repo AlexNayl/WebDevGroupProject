@@ -8,16 +8,31 @@ export default {
         url.searchParams.append("game", "minesweeper");
         url.searchParams.append("score", minesweeperHighScore(duration, boardSize, numBombs));
         try{
-            let response = await fetch(url)
+            let response = await fetch(url);
             if (response.ok){
                 console.log(response);
             }else{
-                throw "Invalid Response!";
+                throw response;
             }
         }catch(e){
             console.error("Error fetching!\n", e);
         }
     },
+
+    async getHighScores(){
+        try{
+            let response = await fetch("http://localhost:4500/gethighscores");
+            if (response.ok){
+                console.log("Got Highscores!");
+                return await response.json();
+            }else{
+                throw response;
+            }
+        }catch(e){
+            console.error("Error fetching!\n", e);
+            return [];
+        }
+    }
 }
 
 function minesweeperHighScore(duration, boardSize, numBombs){

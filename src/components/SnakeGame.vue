@@ -13,7 +13,7 @@
         }
     }
 
-    import '@/../public/stylesheets/main.css';
+    import '@/../public/stylesheets/snake.css';
 
     export default {
         name: "SnakeGame",

@@ -7,13 +7,6 @@ app.use(express.static('public'));
 let dbModel = require("./model/db_model");
 dbModel.init(); // Create if not already setup
 
-dbModel.reset()
-	.then(() => dbModel.init())
-	.then(() => dbModel.addUser("test"))
-	.then(() => dbModel.setHighScore("test", "minesweeper", 10))
-	.then(() => dbModel.getHighScore("test", "minesweeper"))
-	.then((data) => console.log(data)); // Should print { minesweeper: 10 }
-
 app.listen(app.get('port'), function(){
     console.log(`NodeJS Server running at ${app.get('port')}`)
 });
@@ -25,9 +18,16 @@ app.get("/addhighscore", function(request, response){
     newHighscore(request.query)
 });
 
+app.get("/gethighscores", function(request, response){
+    response.set('Access-Control-Allow-Origin', 'http://localhost:8080'); // neccessary for allow GET
+    console.log("recieved GET to /gethighscores", request.query);
+    sendHighScores(response);
+});
+
 async function newHighscore(query){
     if (!query){ return; }
     let username = query.username;
+    username = username.toLowerCase();
     if (!username){ return; }
     let game = query.game;
     if (!game){ return; }
@@ -41,8 +41,8 @@ async function newHighscore(query){
 
     // Now user exists
     let currentScore = (await dbModel.getHighScore(username, game))[game];
-    
-    if (currentScore > score){
+    console.log("currentscore", currentScore, "newscore", score);
+    if (score > currentScore){
         return;
     }
 
@@ -54,4 +54,9 @@ async function newHighscore(query){
 async function userExists(username){
     let result = await dbModel.getHighScores(username);
     return !!result; // if result is defined
+}
+
+async function sendHighScores(response){
+    let result = await dbModel.getAllHighScores();
+    response.send(result);
 }

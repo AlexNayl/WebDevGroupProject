@@ -17,7 +17,7 @@
 
 <script>
     import $ from 'jquery';
-    import accessHighscores from '@/../public/scripts/update_highscores.js';
+    import accessHighscores from '@/../public/scripts/access_highscores.js';
     /*
         Highscore handling (Prompt the user for name and add it to a Datebase later)
         Notes:
@@ -188,7 +188,9 @@
             let duration = Math.round(new Date().getTime() / 1000) - this.startedTime;
             this.vuePage.time = duration; // just incase
             if (win){
-                accessHighscores.updateHighscoresMinesweeper(duration, this.boardSize, this.numBombs, "name") // TODO: Add username parameter
+                accessHighscores.updateHighscoresMinesweeper(duration, this.boardSize, this.numBombs, prompt("Enter a name:")) // TODO: Add username parameter
+            }else{
+                alert("You lose! Press Reset to reset!");
             }
             console.log("Game Over! Win =", win, "Duration =", duration);
         }
@@ -273,7 +275,7 @@
             accessHighscores.updateHighscoresMinesweeper(1, 12, 48, "testName");
         }
     }
-    import '@/../public/stylesheets/main.css';
+    import '@/../public/stylesheets/minesweeper.css';
     //const BOARD_SIZE = 9; // Can change later this. Represents an 9x9 board
     //const NUM_BOMBS = 10; //
     
