@@ -1,1 +1,1 @@
-start cmd /c node node_server.js && start cmd /c npm run serve
+start cmd /c node node_server.js ^& pause && start cmd /c npm run serve
