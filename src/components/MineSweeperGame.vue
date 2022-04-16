@@ -11,16 +11,15 @@
         <input type="range" min="5" max="50" value="10" class="slider" id="bombs-slider">
     </div>
     <button @click="reset" id="resetButton">Reset</button>
+    <button @click="test">Test</button>
     <div id="gameDiv"></div>
 </template>
 
 <script>
     import $ from 'jquery';
     import accessHighscores from '@/../public/scripts/update_highscores.js';
-    // Temp
     /*
         Highscore handling (Prompt the user for name and add it to a Datebase later)
-        Change board size
         Notes:
         If there is infinite recursion encountered tell Samuel with a screenshot of the game I think I fixed it not sure
     */
@@ -189,7 +188,7 @@
             let duration = Math.round(new Date().getTime() / 1000) - this.startedTime;
             this.vuePage.time = duration; // just incase
             if (win){
-                accessHighscores.updateHighscores(duration, "name") // TODO: Add username parameter
+                accessHighscores.updateHighscoresMinesweeper(duration, this.boardSize, this.numBombs, "name") // TODO: Add username parameter
             }
             console.log("Game Over! Win =", win, "Duration =", duration);
         }
@@ -214,6 +213,11 @@
                     bombs2place--;
                 }
             }
+            /*
+            Problem with this line is that it is deceptive concerning the slider
+            But also I don't know if it ever changes the value. Maybe its never an issue placing all the bombs so its irrelevant
+            */
+            this.vuePage.bombs -= bombs2place; 
         }
 
         acceptableBombLoc(loc){
@@ -264,6 +268,10 @@
         getCol(str){
             return parseInt(str.split(",")[1]);
         }
+
+        test(){
+            accessHighscores.updateHighscoresMinesweeper(1, 12, 48, "testName");
+        }
     }
     import '@/../public/stylesheets/main.css';
     //const BOARD_SIZE = 9; // Can change later this. Represents an 9x9 board
@@ -310,6 +318,9 @@
             reset: function (){
                 this.game.reset(this.bombs, this.boardSize);
             },
+            test: function() {
+                this.game.test();
+            }
             // TODO: ADD BACK inArray not neccessary to be part of game
         }, 
         mounted(){
