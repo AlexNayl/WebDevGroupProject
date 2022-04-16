@@ -272,7 +272,8 @@
         }
 
         test(){
-            accessHighscores.updateHighscoresMinesweeper(1, 12, 48, "testName");
+            console.log("Test called");
+            //accessHighscores.updateHighscoresMinesweeper(1, 12, 48, "testName");
         }
     }
     import '@/../public/stylesheets/minesweeper.css';
