@@ -2,11 +2,11 @@
     <p>Flags Placed: {{flagsPlaced}}</p>
     <!--<p>Bombs: {{bombs}}</p>-->
     <p>Time: {{time}}</p>
-    <p id="board-size">Board Size: 9</p>
+    <p id="board-size">Board Size: {{boardSize}}</p>
     <div>
         <input type="range" min="6" max="12" value="9" class="slider" id="board-size-slider">
     </div>
-    <p id="bombs">Bombs: 10</p>
+    <p id="bombs">Bombs: {{bombs}}</p>
     <div>
         <input type="range" min="5" max="50" value="10" class="slider" id="bombs-slider">
     </div>
@@ -96,7 +96,9 @@
             return gameBoard;
         }
 
-        reset(){
+        reset(numBombs, boardSize){
+            this.numBombs = numBombs;
+            this.boardSize = boardSize;
             this.setup();
         }
 
@@ -124,8 +126,8 @@
                 return;
             }
 
-            let squareRow = parseInt(square.id[0]);
-            let squareCol = parseInt(square.id[2]);
+            let squareRow = this.getRow(square.id);
+            let squareCol = this.getCol(square.id);
             let bombsNear = this.countBombsNear(squareRow, squareCol);
             if (bombsNear == 0){
                 this.clearNearBy(squareRow, squareCol);
@@ -186,7 +188,9 @@
             clearTimeout();
             let duration = Math.round(new Date().getTime() / 1000) - this.startedTime;
             this.vuePage.time = duration; // just incase
-            accessHighscores.updateHighscores(duration, "name") // TODO: Add username parameter
+            if (win){
+                accessHighscores.updateHighscores(duration, "name") // TODO: Add username parameter
+            }
             console.log("Game Over! Win =", win, "Duration =", duration);
         }
 
@@ -213,8 +217,8 @@
         }
 
         acceptableBombLoc(loc){
-            let squareRow = parseInt(loc[0]);
-            let squareCol = parseInt(loc[2]);
+            let squareRow = this.getRow(loc);
+            let squareCol = this.getCol(loc);
             for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.boardSize); row++){
                 for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.boardSize); col++){
                     let bombsNearBy = this.countBombsNear(row, col);
@@ -251,6 +255,15 @@
             }
             return false;
         }
+
+        // It will only call with proper ids
+        getRow(str){
+            return parseInt(str.split(",")[0]);
+        }
+
+        getCol(str){
+            return parseInt(str.split(",")[1]);
+        }
     }
     import '@/../public/stylesheets/main.css';
     //const BOARD_SIZE = 9; // Can change later this. Represents an 9x9 board
@@ -273,8 +286,7 @@
                 this.boardSize = $("#board-size-slider").val();
                 this.bombs = $("#bombs-slider").val();
                 this.game = new Minesweeper(this.boardSize, this.bombs, this);
-                accessHighscores.updateHighscores(5, "abc");
-
+                
                 $("#board-size-slider").change(() => {
                     this.updateBoardSize();
                 });
@@ -286,19 +298,17 @@
             updateBoardSize() {
                 let val = document.querySelector("#board-size-slider").value;
                 this.boardSize = val;
-                this.game.boardSize = val;
-                $("#board-size").text("Board Size: " + val);
+                // replaced by {{}} $("#board-size").text("Board Size: " + val);
                 this.updateBombs(); // Update number of bombs in case we have exceeded max bomb count
             },
             updateBombs() {
                 let val = document.querySelector("#bombs-slider").value;
                 val = Math.floor(Math.min(val, this.boardSize * this.boardSize / 3)); // Max number of bombs should be 1/3 board size
                 this.bombs = val;
-                this.game.numBombs = val;
-                $("#bombs").text("Bombs: " + val);
+                // replaced by {{}} $("#bombs").text("Bombs: " + val);
             },
             reset: function (){
-                this.game.reset();
+                this.game.reset(this.bombs, this.boardSize);
             },
             // TODO: ADD BACK inArray not neccessary to be part of game
         }, 
