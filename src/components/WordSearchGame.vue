@@ -12,10 +12,10 @@
 </template>
 
 <script>
-	import $ from 'jquery';
+	/*import $ from 'jquery';
 	import accessHighScores from '@/../public/scripts/access_highscores.js';
 	
 	class Wordsearch{
 		
-	}
+	}*/
 </script>
