@@ -1,5 +1,6 @@
 <template>
-    <p>Score {{ score }}</p>
+    <p v-if="running">Score {{ score }}</p>
+	<p v-if="!running">Press WASD or the Arrow Keys to begin</p>
     <div id="snakeDiv"></div>
 </template>
 
@@ -35,6 +36,7 @@
 
         reset() {
             this.running = false;
+			this.vuePage.running = false;
             this.tail = [];
             this.x = Math.floor(this.width / 2);
             this.y = Math.floor(this.height / 2);
@@ -59,6 +61,7 @@
             this.direction = 0; // 0: Right, 1: Down, 2: Left, 3: Up
 			this.vuePage.score = 0;
             this.running = false;
+			this.vuePage.running = false;
 
             const sketch = (s) => {
                 s.setup = () => {
@@ -153,6 +156,7 @@
 
                     if ((key == "w" || key == "a" || key == "s" || key == "d" || key == "ArrowRight" || key == "ArrowDown" || key == "ArrowLeft" || key == "ArrowUp") && !this.running) {
                         this.running = true;
+						this.vuePage.running = true;
                     }
                 }
             };
@@ -169,6 +173,7 @@
                 game: null,
                 p5Context: null,
 				score: 0,
+				running: false,
             }
         },
         methods: {
