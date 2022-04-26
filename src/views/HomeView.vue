@@ -25,10 +25,10 @@
 				</div>
 				<div class="card col col-md-3">
 					<div class="card-body">
-						<img class="card-img-top" src="@/../public/images/snake.png" alt="Word Search">
+						<img class="card-img-top" src="@/../public/images/wordsearch.png" alt="Word Search">
 						<h5 class="card-title">Word Search</h5>
 						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						<a href="/MineSweeper" class="btn btn-primary">Play</a>
+						<a href="/WordSearch" class="btn btn-primary">Play</a>
 					</div>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
 				<tbody>
 					<tr>
 						<td>Andrew Clegg</td>
-						<td><a>Link</a></td>
+						<td><a href="https://github.com/Andrew-Clegg">Link</a></td>
 					</tr>
 					<tr>
 						<td>Samuel Jones</td>
