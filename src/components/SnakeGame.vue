@@ -1,5 +1,5 @@
 <template>
-    <p>Score 0</p>
+    <p>Score {{ score }}</p>
     <div id="snakeDiv"></div>
 </template>
 
@@ -40,6 +40,7 @@
             this.y = Math.floor(this.height / 2);
             this.food = 10;
             this.direction = 0;
+			this.vuePage.score = 0
             this.placeFood();
         }
 
@@ -56,12 +57,13 @@
             this.foodx = 0;
             this.foody = 0;
             this.direction = 0; // 0: Right, 1: Down, 2: Left, 3: Up
+			this.vuePage.score = 0;
             this.running = false;
 
             const sketch = (s) => {
                 s.setup = () => {
                     let c = s.createCanvas(width * cellSize, height * cellSize);
-                    s.frameRate(5);
+                    s.frameRate(10);
                     c.parent("snakeDiv");
                     this.placeFood();
                 }
@@ -106,6 +108,7 @@
                         if (this.x == this.foodx && this.y == this.foody) {
                             this.addFood();
                             this.placeFood();
+							this.vuePage.score++;
                         }
 
                         // Tail
@@ -148,7 +151,7 @@
                         this.direction = 3;
                     }
 
-                    if (key == " " && !this.running) {
+                    if ((key == "w" || key == "a" || key == "s" || key == "d" || key == "ArrowRight" || key == "ArrowDown" || key == "ArrowLeft" || key == "ArrowUp") && !this.running) {
                         this.running = true;
                     }
                 }
@@ -164,7 +167,8 @@
         data() {
             return {
                 game: null,
-                p5Context: null
+                p5Context: null,
+				score: 0,
             }
         },
         methods: {
