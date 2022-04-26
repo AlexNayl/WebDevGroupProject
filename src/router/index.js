@@ -39,6 +39,11 @@ const routes = [
     path: '/ScoreVisualization',
     name: 'ScoreVisualization',
     component: () => import ('../views/ScoreVisualization.vue')
+  },
+  {
+    path: "/WordSearch",
+    name: "WordSearch",
+    component: () => import ('../views/WordSearch.vue')
   }
 ]
 

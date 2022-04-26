@@ -6,7 +6,8 @@
 			<router-link to="/Snake">Snake</router-link> |
             <router-link to="/Highscores">Highscores</router-link> |
 			<router-link to="/Stacker">Stacker</router-link> |
-            <router-link to="/ScoreVisualization">Graphs</router-link>
+            <router-link to="/ScoreVisualization">Graphs</router-link> |
+            <router-link to="/WordSearch">WordSearch</router-link>
         </nav>
     </header>
 </template>
