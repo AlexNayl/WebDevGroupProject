@@ -1,10 +1,10 @@
 <template>
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Minesweeper Score</th>
-                <th>Snake Score</th>
+                <th scope="col">Name</th>
+                <th scope="col">Minesweeper Score</th>
+                <th scope="col">Snake Score</th>
             </tr>
         </thead>
         <tbody>
