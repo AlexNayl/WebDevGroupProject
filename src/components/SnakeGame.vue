@@ -6,6 +6,7 @@
 
 <script>
     import p5 from "p5";
+	import accessHighscores from '@/../public/scripts/access_highscores.js';
     class Snake {
         constructor(vuePage) {
             this.vuePage = vuePage;
@@ -37,6 +38,9 @@
         reset() {
             this.running = false;
 			this.vuePage.running = false;
+			if (this.vuePage.score > 0) {
+				accessHighscores.updateHighscoresSnake(this.vuePage.score, prompt("Enter a name:"));
+			}
             this.tail = [];
             this.x = Math.floor(this.width / 2);
             this.y = Math.floor(this.height / 2);

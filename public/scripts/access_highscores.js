@@ -17,7 +17,24 @@ export default {
         }catch(e){
             console.error("Error fetching!\n", e);
         }
-    },
+	},
+	
+	async updateHighscoresSnake(score, username) {
+		let url = new URL("http://localhost:4500/addhighscore");
+        url.searchParams.append("username", username);
+        url.searchParams.append("game", "snake");
+        url.searchParams.append("score", score);
+        try{
+            let response = await fetch(url);
+            if (response.ok){
+                console.log(response);
+            }else{
+                throw response;
+            }
+        }catch(e){
+            console.error("Error fetching!\n", e);
+        }
+	},
 
     async getHighScores(){
         try{
