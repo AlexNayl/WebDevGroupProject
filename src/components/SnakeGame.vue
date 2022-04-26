@@ -1,10 +1,10 @@
 <template>
     <p>Score 0</p>
+    <div id="snakeDiv"></div>
 </template>
 
 <script>
     import p5 from "p5";
-
     class Snake {
         constructor(vuePage) {
             this.vuePage = vuePage;
@@ -60,8 +60,9 @@
 
             const sketch = (s) => {
                 s.setup = () => {
-                    s.createCanvas(width * cellSize, height * cellSize);
+                    let c = s.createCanvas(width * cellSize, height * cellSize);
                     s.frameRate(5);
+                    c.parent("snakeDiv");
                     this.placeFood();
                 }
 
