@@ -41,7 +41,7 @@ export default {
             let response = await fetch("http://localhost:4500/gethighscores");
             if (response.ok){
                 console.log("Got Highscores!");
-                return (await response.json()).sort(sortHighscoresMinesweeper);
+                return (await response.json()).sort((hs1, hs2) => hs1["user_id"] < hs2["user_id"]);
             }else{
                 throw response;
             }
@@ -56,10 +56,8 @@ export default {
         if (hs == []){
             return hs; 
         }
-
-        let sorter = whichSorter(game);
         // sort by game highscores
-        hs.sort(sorter);
+        hs.sort((hs1, hs2) => hs1[game] < hs2[game]);
 
         while(hs.length > limit){
             hs.pop();
@@ -78,31 +76,4 @@ function minesweeperHighScore(duration, boardSize, numBombs){
     const SCORE_DURATION_COEFFICIENT = 1000;
     let score = Math.ceil(numBombs / boardSize * Math.max(1, (MAX_SCORE_DURATION - duration) * SCORE_DURATION_COEFFICIENT));
     return score;
-}
-
-function whichSorter(game){
-    if (game == "snake"){
-        return sortHighscoresSnake;
-    }else if (game == "wordsearch"){
-        return sortHighscoresWordsearch;
-    }
-
-    // default is minesweeper
-    return sortHighscoresMinesweeper;
-}
-
-function sortHighscoresMinesweeper(hs1, hs2){
-    return sortHighscores(hs1, hs2, "minesweeper");
-}
-
-function sortHighscoresSnake(hs1, hs2){
-    return sortHighscores(hs1, hs2, "snake");
-}
-
-function sortHighscoresWordsearch(hs1, hs2){
-    return sortHighscores(hs1, hs2, "wordsearch");
-}
-
-function sortHighscores(hs1, hs2, game){
-    return hs2[game] > hs1[game];
 }

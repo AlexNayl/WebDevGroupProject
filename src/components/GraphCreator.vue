@@ -1,9 +1,9 @@
 <template>
     <label for="game">Choose a game:</label>
     <select v-model="option" name="game" id="optionSelector" class="custom-select">
-        <option value="minesweeper">Minesweeper</option>
-        <option value="wordsearch">Wordsearch</option>
-        <option value="snake">Snake</option>
+        <option value="Minesweeper">Minesweeper</option>
+        <option value="Wordsearch">Wordsearch</option>
+        <option value="Snake">Snake</option>
     </select>
     <div id="graphDiv">
     </div>
@@ -31,8 +31,9 @@
             async updateGraph(){
                 const LIMIT = 5;
                 let game = this.option;
+                let gameLC = game.toLowerCase();
                 //accessHighscores.doNothing();
-                let graphData = await accessHighscores.getTopHighScores(game, LIMIT);
+                let graphData = await accessHighscores.getTopHighScores(gameLC, LIMIT);
                 let currentGraph = document.getElementById("graph");
                 
                 // if there is a graph present on the screen then remove it
@@ -65,10 +66,10 @@
                     .padding(0.5);
                 const xAxis = d3.axisBottom(xScale);
                 //const MAX_SCORE = Math.max(graphData.map( (entry) => entry[game]));
-                let MAX_SCORE = graphData[0][game];
+                let MAX_SCORE = graphData[0][gameLC];
                 for (let i = 0; i < graphData.length; i++){
-                    if (graphData[i][game] > MAX_SCORE){
-                        MAX_SCORE = graphData[i][game];
+                    if (graphData[i][gameLC] > MAX_SCORE){
+                        MAX_SCORE = graphData[i][gameLC];
                     }
                 }
                 console.log(MAX_SCORE)
@@ -78,15 +79,15 @@
                 const yAxis = d3.axisLeft(yScale).ticks(10);
 
                 // Add rectangles to graph
-                console.log("test", graphData[0][game])
+                console.log("test", graphData[0][gameLC])
                 svg.selectAll("rect")
                     .data(graphData)
                     .enter()
                         .append("rect")
                             .attr("x", (entry) => xScale(entry.user_id))
-                            .attr("y", (entry) => yScale(entry[game]))
+                            .attr("y", (entry) => yScale(entry[gameLC]))
                             .attr("width", xScale.bandwidth())
-                            .attr("height", (entry) => yScale(0) - yScale(entry[game]))
+                            .attr("height", (entry) => yScale(0) - yScale(entry[gameLC]))
                             .attr("fill", () => "#0000FF");
 
                 svg.append("g").attr("class", "x-axis").attr("transform", `translate(0,${GRAPH_WIDTH - MARGIN})`).call(xAxis);
@@ -100,7 +101,7 @@
                 svg.append("text").attr("x", GRAPH_WIDTH * 5 / 10).attr("y", GRAPH_HEIGHT).text("Users");
 
                 // Graph Title
-                svg.append("text").attr("x", GRAPH_WIDTH * 3 / 10).attr("y", MARGIN / 2).text(`Top ${LIMIT} User High Scores for ${game.toUpperCase()}`);
+                svg.append("text").attr("x", GRAPH_WIDTH * 3 / 10).attr("y", MARGIN / 2).text(`Top ${LIMIT} User High Scores for ${game}`);
 
             }
         }, 

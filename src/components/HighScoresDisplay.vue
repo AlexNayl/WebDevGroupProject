@@ -2,9 +2,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Minesweeper Score</th>
-                <th scope="col">Snake Score</th>
+                <th scope="col" @click="sort('user_id')">Name</th>
+                <th scope="col" @click="sort('minesweeper')">Minesweeper Score</th>
+                <th scope="col" @click="sort('snake')">Snake Score</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +26,8 @@
         data(){
             return {
                 highscores: [],
+                lastSorted: "",
+                sortDirection: true,
             }
         },
         methods: {
@@ -33,6 +35,17 @@
             startup: async function(){
                 this.highscores = await accessHighscores.getHighScores();
             },
+            sort: function(type){
+                let sortFunction = (hs1, hs2) => hs1[type] < hs2[type];
+                if (this.sortDirection){
+                    sortFunction = (hs1, hs2) => hs2[type] < hs1[type];
+                }
+                this.highscores.sort(sortFunction);
+                if (type == this.lastSorted || this.lastSorted == ""){
+                    this.sortDirection = !this.sortDirection;
+                }
+                this.lastSorted = type;
+            }
         }, 
         mounted(){
             // Call Start Up Code
