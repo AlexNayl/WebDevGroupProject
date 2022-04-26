@@ -1,6 +1,6 @@
 <template>
     <label for="game">Choose a game:</label>
-    <select v-model="option" name="game" id="optionSelector">
+    <select v-model="option" name="game" id="optionSelector" class="custom-select">
         <option value="minesweeper">Minesweeper</option>
         <option value="wordsearch">Wordsearch</option>
         <option value="snake">Snake</option>
