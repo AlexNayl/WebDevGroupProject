@@ -20,6 +20,7 @@
         data(){
             return {
                 option: "",
+                graphColours: ["red", "lightgreen", "blue", "yellow", "purple"],
             }
         },
         methods: {
@@ -65,21 +66,26 @@
                     .range([MARGIN * 2, GRAPH_WIDTH - MARGIN])
                     .padding(0.5);
                 const xAxis = d3.axisBottom(xScale);
-                //const MAX_SCORE = Math.max(graphData.map( (entry) => entry[game]));
+
+                // Determine max score
                 let MAX_SCORE = graphData[0][gameLC];
                 for (let i = 0; i < graphData.length; i++){
                     if (graphData[i][gameLC] > MAX_SCORE){
                         MAX_SCORE = graphData[i][gameLC];
                     }
                 }
-                console.log(MAX_SCORE)
+
+                // Add colours to the graph
+                for (let i = 0; i < graphData.length; i++){
+                    graphData[i]["colour"] = this.graphColours[i % this.graphColours.length];
+                }
+
                 const yScale = d3.scaleLinear()
                     .domain([0, MAX_SCORE])
                     .range([GRAPH_HEIGHT - MARGIN, MARGIN]);
                 const yAxis = d3.axisLeft(yScale).ticks(10);
 
                 // Add rectangles to graph
-                console.log("test", graphData[0][gameLC])
                 svg.selectAll("rect")
                     .data(graphData)
                     .enter()
@@ -88,7 +94,7 @@
                             .attr("y", (entry) => yScale(entry[gameLC]))
                             .attr("width", xScale.bandwidth())
                             .attr("height", (entry) => yScale(0) - yScale(entry[gameLC]))
-                            .attr("fill", () => "#0000FF");
+                            .attr("fill", (entry) => entry.colour);
 
                 svg.append("g").attr("class", "x-axis").attr("transform", `translate(0,${GRAPH_WIDTH - MARGIN})`).call(xAxis);
                 svg.append("g").attr("class", "y-axis").attr("transform", `translate(${MARGIN * 2},0)`).call(yAxis);
