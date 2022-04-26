@@ -94,13 +94,13 @@
 
                 
                 // Create the y axis label
-                svg.append("text").attr("transform", `rotate(-90) translate(${-GRAPH_HEIGHT * 3 / 4}, ${MARGIN / 2})`).text("Score");
+                svg.append("text").attr("transform", `rotate(-90) translate(${-GRAPH_HEIGHT * 1 / 2}, ${MARGIN / 2})`).text("High Score");
 
                 // Create the x axis label
-                svg.append("text").attr("x", GRAPH_WIDTH * 4 / 10).attr("y", GRAPH_HEIGHT).text("Users");
+                svg.append("text").attr("x", GRAPH_WIDTH * 5 / 10).attr("y", GRAPH_HEIGHT).text("Users");
 
                 // Graph Title
-                svg.append("text").attr("x", GRAPH_WIDTH * 1 / 10).attr("y", MARGIN).text(`TOP ${LIMIT} USERS`);
+                svg.append("text").attr("x", GRAPH_WIDTH * 3 / 10).attr("y", MARGIN / 2).text(`Top ${LIMIT} User High Scores for ${game.toUpperCase()}`);
 
             }
         }, 
@@ -112,3 +112,9 @@
         },
     }
 </script>
+
+<style>
+    text{
+        font-family: Arial;
+    }
+</style>

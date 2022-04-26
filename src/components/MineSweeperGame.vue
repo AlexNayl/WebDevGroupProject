@@ -1,6 +1,5 @@
 <template>
     <p>Flags Placed: {{flagsPlaced}}</p>
-    <!--<p>Bombs: {{bombs}}</p>-->
     <p>Time: {{time}}</p>
     <p id="board-size">Board Size: {{boardSize}}</p>
     <div>
@@ -11,7 +10,6 @@
         <input type="range" min="5" max="50" value="10" class="slider" id="bombs-slider">
     </div>
     <button @click="reset" id="resetButton">Reset</button>
-    <button @click="test">Test</button>
     <div id="gameDiv"></div>
 </template>
 
@@ -270,11 +268,6 @@
         getCol(str){
             return parseInt(str.split(",")[1]);
         }
-
-        test(){
-            console.log("Test called");
-            //accessHighscores.updateHighscoresMinesweeper(1, 12, 48, "testName");
-        }
     }
     import '@/../public/stylesheets/minesweeper.css';
     //const BOARD_SIZE = 9; // Can change later this. Represents an 9x9 board
@@ -321,9 +314,6 @@
             reset: function (){
                 this.game.reset(this.bombs, this.boardSize);
             },
-            test: function() {
-                this.game.test();
-            }
             // TODO: ADD BACK inArray not neccessary to be part of game
         }, 
         mounted(){

@@ -27,7 +27,6 @@ app.get("/gethighscores", function(request, response){
 async function newHighscore(query){
     if (!query){ return; }
     let username = query.username;
-    username = username.toLowerCase();
     if (!username){ return; }
     let game = query.game;
     if (!game){ return; }

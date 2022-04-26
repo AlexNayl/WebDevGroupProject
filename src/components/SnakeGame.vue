@@ -23,7 +23,8 @@
         }
 
         addFood() {
-            this.food += 3;
+            this.food += 5;
+            this.vuePage.score += 5;
         }
 
         isCoordInTail(x, y) {
@@ -39,6 +40,7 @@
             this.running = false;
 			this.vuePage.running = false;
 			if (this.vuePage.score > 0) {
+                console.log("prompting")
 				accessHighscores.updateHighscoresSnake(this.vuePage.score, prompt("Enter a name:"));
 			}
             this.tail = [];
@@ -63,6 +65,7 @@
             this.foodx = 0;
             this.foody = 0;
             this.direction = 0; // 0: Right, 1: Down, 2: Left, 3: Up
+            this.lastDirection = this.direction;
 			this.vuePage.score = 0;
             this.running = false;
 			this.vuePage.running = false;
@@ -78,6 +81,7 @@
                 s.draw = () => {
                     // Update
                     if (this.running) {
+                        this.lastDirection = this.direction;
                         // Movement
                         if (this.direction == 0) {
                             // Right
@@ -108,14 +112,15 @@
                         // Collision check
                         if (this.isCoordInTail(this.x, this.y)) {
                             // Hit the tail, game over
+                            console.log("this.running1", this.running);
                             this.reset();
+                            console.log("this.running2", this.running);
                         }
 
                         // Food check
                         if (this.x == this.foodx && this.y == this.foody) {
                             this.addFood();
                             this.placeFood();
-							this.vuePage.score++;
                         }
 
                         // Tail
@@ -148,16 +153,20 @@
 
                 s.keyPressed = (e) => {
                     let key = e.key;
-                    if ((key == "d" || key == "ArrowRight") && this.direction != 2) {
+
+                    console.log("key press", key);
+                    // Check movement direction
+                    if ((key == "d" || key == "ArrowRight") && this.lastDirection != 2) {
                         this.direction = 0;
-                    } else if ((key == "s" || key == "ArrowDown") && this.direction != 3) {
+                    } else if ((key == "s" || key == "ArrowDown") && this.lastDirection != 3) {
                         this.direction = 1;
-                    } else if ((key == "a" || key == "ArrowLeft") && this.direction != 0) {
+                    } else if ((key == "a" || key == "ArrowLeft") && this.lastDirection != 0) {
                         this.direction = 2;
-                    } else if ((key == "w" || key == "ArrowUp") && this.direction != 1) {
+                    } else if ((key == "w" || key == "ArrowUp") && this.lastDirection != 1) {
                         this.direction = 3;
                     }
 
+                    // Start the game
                     if ((key == "w" || key == "a" || key == "s" || key == "d" || key == "ArrowRight" || key == "ArrowDown" || key == "ArrowLeft" || key == "ArrowUp") && !this.running) {
                         this.running = true;
 						this.vuePage.running = true;
