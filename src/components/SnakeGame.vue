@@ -132,6 +132,7 @@
                         }
                     }
 
+					// Border
                     s.clear();
                     s.fill(255, 255, 255);
                     s.stroke(0, 0, 0);

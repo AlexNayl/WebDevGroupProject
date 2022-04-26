@@ -26,6 +26,11 @@ const routes = [
      component: () => import('../views/WordSearch.vue')
   },
   {
+    path: '/Stacker',
+    name: 'Stacker',
+    component: () => import("../views/StackerView.vue")
+  },
+  {
     path: '/Highscores',
     name: 'Highscores',
     component: () => import ('../views/HighScoresView.vue')
