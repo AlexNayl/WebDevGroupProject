@@ -6,7 +6,6 @@
         <option value="snake">Snake</option>
     </select>
     <div id="graphDiv">
-        <p>Graph Div</p>
     </div>
 </template>
 
