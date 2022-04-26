@@ -48,7 +48,7 @@ exports.reset = function() {
 // Adds a new user to the database, automatically filling tables with the necessary data for the user to function
 exports.addUser = function(userId) {
     return new Promise((resolve, reject) => {
-        db.run("INSERT INTO high_scores (user_id) VALUES (?)", [userId],
+        db.run("INSERT INTO high_scores (user_id) VALUES (?)", [userId.substring(0, Math.min(userId.length, 20))],
             err => {
                 if (err) {
                     console.error("Failed to add user to table high_scores: ", err);
