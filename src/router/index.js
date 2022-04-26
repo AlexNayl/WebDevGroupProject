@@ -24,6 +24,11 @@ const routes = [
     path: '/Highscores',
     name: 'Highscores',
     component: () => import ('../views/HighScoresView.vue')
+  },
+  {
+    path: '/ScoreVisualization',
+    name: 'ScoreVisualization',
+    component: () => import ('../views/ScoreVisualization.vue')
   }
 ]
 
