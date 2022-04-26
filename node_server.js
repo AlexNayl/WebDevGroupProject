@@ -41,7 +41,6 @@ async function newHighscore(query){
 
     // Now user exists
     let currentScore = (await dbModel.getHighScore(username, game))[game];
-    console.log("currentscore", currentScore, "newscore", score);
     if (currentScore > score){
         return;
     }
