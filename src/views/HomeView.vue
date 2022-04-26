@@ -1,8 +1,12 @@
 <template>
     <div class="home">
+		<h2>About</h2>
+		<div class="w-100 d-flex justify-content-center">
+			<p class="w-50">Lorem ipum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
 		<div class="container">
-			<h3>Games</h3>
-			<div class="row">
+			<h2>Games</h2>
+			<div class="row d-flex justify-content-center">
 				<div class="card col col-md-3">
 					<div class="card-body">
 						<img class="card-img-top" src="@/../public/images/minesweeper.png" alt="MineSweeper">
@@ -28,6 +32,54 @@
 					</div>
 				</div>
 			</div>
+			<h2>Utilities</h2>
+			<div class="row d-flex justify-content-center">
+				<div class="card col col-md-3">
+					<div class="card-body">
+						<h5 class="card-title">High Scores</h5>
+						<p class="card-text">View a list of all users and their high scores per game.</p>
+						<a href="/HighScores" class="btn btn-primary">View</a>
+					</div>
+				</div>
+				<div class="card col col-md-3">
+					<div class="card-body">
+						<h5 class="card-title">Graph</h5>
+						<p class="card-text">View a graph of all high scores per game.</p>
+						<a href="/ScoreVisualization" class="btn btn-primary">View</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<h2>Contributors</h2>
+		<div class="w-100 d-flex justify-content-center">
+			<table class="table w-50">
+				<thead>
+					<th>Name</th>
+					<th>Github URL</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Andrew Clegg</td>
+						<td><a>Link</a></td>
+					</tr>
+					<tr>
+						<td>Samuel Jones</td>
+						<td><a href="https://github.com/samuel-jones-uoit">Link</a></td>
+					</tr>
+					<tr>
+						<td>Zachary Windover</td>
+						<td><a href="https://github.com/ZacharyWindover">Link</a></td>
+					</tr>
+					<tr>
+						<td>Alexander Naylor</td>
+						<td><a href="https://github.com/AlexNayl">Link</a></td>
+					</tr>
+					<tr>
+						<td>Bence Takacs</td>
+						<td><a href="https://github.com/BenceTakacs15">Link</a></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
     </div>
 </template>
