@@ -47,19 +47,16 @@
             updateBoardSize() {
                 let val = document.querySelector("#board-size-slider").value;
                 this.boardSize = val;
-                // replaced by {{}} $("#board-size").text("Board Size: " + val);
                 this.updateBombs(); // Update number of bombs in case we have exceeded max bomb count
             },
             updateBombs() {
                 let val = document.querySelector("#bombs-slider").value;
                 val = Math.floor(Math.min(val, this.boardSize * this.boardSize / 3)); // Max number of bombs should be 1/3 board size
                 this.bombs = val;
-                // replaced by {{}} $("#bombs").text("Bombs: " + val);
             },
             reset: function (){
                 this.game.reset(this.bombs, this.boardSize);
             },
-            // TODO: ADD BACK inArray not neccessary to be part of game
         }, 
         mounted(){
             // Call Start Up Code

@@ -1,25 +1,51 @@
 import p5 from "p5";
 import accessHighscores from '@/../public/scripts/access_highscores.js';
+/*
+ * Class Name: Snake
+ * Description: Snake Game
+*/
 export default class Snake {
+	/*
+     * Name: constructor
+     * Description: Creates an instance of the Snake Game
+     * Return: None
+    */
 	constructor(vuePage) {
 		this.vuePage = vuePage;
 		this.setup(30, 20, 25);
 	}
 
+	/*
+     * Name: placeFood
+     * Description: Places a piece of food in the game
+     * Return: None
+    */
 	placeFood() {
+		// If snake is maximum size then don't place any food
+		if (this.tail.length + 1 == this.width * this.height){ return; }
 		do {
 			this.foodx = Math.floor(Math.random() * this.width);
 			this.foody = Math.floor(Math.random() * this.height);
 		} while ((this.x == this.foodx && this.y == this.foody) || this.isCoordInTail(this.x, this.y));
 		// Keeps picking random locations which are not occupied by the snake
-		console.log("Placed food at ", this.foodx, ", ", this.foody);
+		//console.log("Placed food at ", this.foodx, ", ", this.foody);
 	}
 
+	/*
+     * Name: addFood
+     * Description: The snake consumes food
+     * Return: None
+    */
 	addFood() {
 		this.food += 5;
 		this.vuePage.score += 5;
 	}
 
+	/*
+     * Name: isCoordInTail
+     * Description: Checks if a coordinate is within the Snake's tail
+     * Return: True if it is, otherwise false
+    */
 	isCoordInTail(x, y) {
 		for (let coord of this.tail) {
 			if (coord[0] == x && coord[1] == y) {
@@ -29,11 +55,15 @@ export default class Snake {
 		return false;
 	}
 
+	/*
+     * Name: reset
+     * Description: Resets the game
+     * Return: None
+    */
 	reset() {
 		this.running = false;
 		this.vuePage.running = false;
 		if (this.vuePage.score > 0) {
-			console.log("prompting")
 			accessHighscores.updateHighscores(this.vuePage.score, prompt("Enter a name:"), "snake");
 		}
 		this.tail = [];
@@ -45,8 +75,14 @@ export default class Snake {
 		this.placeFood();
 	}
 
-	// width and height are number of cells, not pixels
-	// cellSize is the number of pixels per cell
+	/*
+     * Name: setup
+     * Description: Sets up the snake game
+     * Return: None
+     * More:
+     width and height are number of cells, not pixels
+	 cellSize is the number of pixels per cell
+    */
 	setup(width, height, cellSize) {
 		this.width = width;
 		this.height = height;

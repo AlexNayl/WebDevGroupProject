@@ -12,6 +12,20 @@ function minesweeperHighScore(duration, boardSize, numBombs){
 }
 
 /*
+ * Name: inArray
+ * Description: Searchs an array for an element
+ * Return: True if element is in array otherwise false
+*/
+function inArray(array, element){
+		for (let i = 0; i < array.length; i++){
+			if (element == array[i]){
+				return true;
+			}
+		}
+		return false;
+	}
+
+/*
  * Class Name: Minesweeper 
  * Description: Runs a game of minesweeper 
 */
@@ -142,7 +156,7 @@ export default class Minesweeper{
 		square.classList.remove("unknownsquare");
 
 		// Incase user clicks on bomb (the !gameOver part is for revealing the entire board)
-		if (this.inArray(this.bombLocations, square.id)){
+		if (inArray(this.bombLocations, square.id)){
 			// If game is over then this is a flag square needs to be removed to allow bomb image
 			if (this.gameOver){
 				square.classList.remove("flagsquare");
@@ -200,7 +214,7 @@ export default class Minesweeper{
 				// Save searching useless spot
 				if (row == squareRow && col == squareCol){ continue; }
 				// checks all the bomb locations to see if the square is a bomb
-				if (this.inArray(this.bombLocations, row.toString() + "," + col.toString())){
+				if (inArray(this.bombLocations, row.toString() + "," + col.toString())){
 					bombsNear += 1;
 				}
 			}
@@ -221,12 +235,12 @@ export default class Minesweeper{
 		}
 
 		// Check if the square is an unknown square or flag then flag or unflag it
-		if (this.inArray(square.classList, "unknownsquare")){
+		if (inArray(square.classList, "unknownsquare")){
 			square.classList.add("flagsquare");
 			square.classList.remove("unknownsquare");
 			this.flagsPlaced++;
 			this.vuePage.flagsPlaced = this.flagsPlaced;
-		}else if(this.inArray(square.classList, "flagsquare")){
+		}else if(inArray(square.classList, "flagsquare")){
 			square.classList.remove("flagsquare");
 			square.classList.add("unknownsquare");
 			this.flagsPlaced--;
@@ -271,18 +285,20 @@ export default class Minesweeper{
 	addBombs(){
 		let possibleLocations = [];
 
-		// 
+		// Add all locations as possible locations for a bomb
 		for (let i = 0; i < this.boardSize; i++){
 			for (let j = 0; j < this.boardSize; j++){
 				possibleLocations.push(i.toString() + "," + j.toString());
 			}
 		}
 
-		let bombs2place = this.numBombs;
+		let bombs2place = this.numBombs; // remaining boms to place
+
+		// Randomly select a location and see if its acceptable
 		while(bombs2place > 0 && possibleLocations.length > 0){
 			let locIndex = Math.floor(Math.random() * possibleLocations.length);
 			let loc = possibleLocations[locIndex];
-			// Remove loc
+			// Remove loc from possibilities
 			possibleLocations[locIndex] = possibleLocations[0];
 			possibleLocations.shift();
 			if (this.acceptableBombLoc(loc)){
@@ -290,20 +306,25 @@ export default class Minesweeper{
 				bombs2place--;
 			}
 		}
-		/*
-		Problem with this line is that it is deceptive concerning the slider
-		But also I don't know if it ever changes the value. Maybe its never an issue placing all the bombs so its irrelevant
-		*/
+		
+		// Subtract the bombs that failed to place from the counter
 		this.vuePage.bombs -= bombs2place; 
 	}
 
+	/*
+     * Name: acceptableBombLoc
+     * Description: Determines whether a location is a suitable place to add a bomb
+     * Return: True if acceptable false otherwise
+    */
 	acceptableBombLoc(loc){
 		let squareRow = this.getRow(loc);
 		let squareCol = this.getCol(loc);
+
+		// Search 3x3 grid around location for bombs
 		for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.boardSize); row++){
 			for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.boardSize); col++){
 				let bombsNearBy = this.countBombsNear(row, col);
-				// Shoudln't be greater than but just incase
+				// If too many bombs nearby then not acceptable location
 				if (bombsNearBy >= Minesweeper.MAX_BOMBS_3X3){
 					return false;
 				}
@@ -312,11 +333,19 @@ export default class Minesweeper{
 		return true;
 	}
 
+	/*
+     * Name: checkGameOver
+     * Description: Checks if the game is over and ends the game is required
+     * Return: None
+    */
 	checkGameOver(){
-		let unknownOrBombCount = 0;
+		let unknownOrBombCount = 0; // Amount of unknown/bomb sequares
+
+		// Search the entire board
 		for (let row = 0; row < this.boardSize; row++){
 			for (let col = 0; col < this.boardSize; col++){
 				let square = document.getElementById(row.toString() + "," + col.toString());
+				// Counts the number of unknown and flagged squares
 				if (square.classList.contains("unknownsquare") || square.classList.contains("flagsquare")){
 					unknownOrBombCount++;
 				}
@@ -328,20 +357,21 @@ export default class Minesweeper{
 		}
 	}
 
-	inArray(array, element){
-		for (let i = 0; i < array.length; i++){
-			if (element == array[i]){
-				return true;
-			}
-		}
-		return false;
-	}
 
-	// It will only call with proper ids
+	/*
+     * Name: getRow
+     * Description: Gets a row from a given string
+     * Return: Row integer
+    */
 	getRow(str){
 		return parseInt(str.split(",")[0]);
 	}
 
+	/*
+     * Name: getCol
+     * Description: Gets a col from a given string
+     * Return: Col integer
+    */
 	getCol(str){
 		return parseInt(str.split(",")[1]);
 	}

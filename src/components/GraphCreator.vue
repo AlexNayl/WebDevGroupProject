@@ -2,7 +2,7 @@
     <label for="game">Choose a game: </label>
     <select v-model="option" name="game" id="optionSelector" class="custom-select">
         <option value="Minesweeper">Minesweeper</option>
-        <option value="Wordsearch">Wordsearch</option>
+        <option value="Word_Search">Wordsearch</option>
         <option value="Snake">Snake</option>
         <option value="Stacker">Stacker</option>
     </select>
@@ -22,21 +22,26 @@
         data(){
             return {
                 option: "",
-                graphColours: ["red", "lightgreen", "blue", "yellow", "purple"],
+                graphColours: ["red", "lightgreen", "blue", "yellow", "purple"], // colours to be used in the graph
             }
         },
         methods: {
             startup(){
+                // If an option is selected the update the graph
                 $("option").click(() => {
                     this.updateGraph();
                 })
             },
+            /*
+             * Name: updateGraph
+             * Description: Updates the graph
+             * Return:
+            */
             async updateGraph(){
                 const LIMIT = 5;
-                let game = this.option;
+                let game = this.option; // Game to look at
                 let gameLC = game.toLowerCase();
-                //accessHighscores.doNothing();
-                let graphData = await accessHighscores.getTopHighScores(gameLC, LIMIT);
+                let graphData = await accessHighscores.getTopHighScores(gameLC, LIMIT); // Get graph data from server
                 let currentGraph = document.getElementById("graph");
                 
                 // if there is a graph present on the screen then remove it
@@ -50,7 +55,6 @@
                 }
 
                 // data exists
-
                 const GRAPH_WIDTH = 500;
                 const GRAPH_HEIGHT = 500;
                 const MARGIN = 40;

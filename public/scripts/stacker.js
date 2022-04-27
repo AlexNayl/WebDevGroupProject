@@ -1,12 +1,25 @@
 import p5 from "p5";
 import accessHighscores from '@/../public/scripts/access_highscores.js';
-
+	/*
+     * Class Name: Stacker
+     * Description: Stacker Game
+    */
 export default class Stacker {
+	/*
+     * Name: constructor
+     * Description: Creates an instance of the Stacker game
+     * Return: None
+    */
 	constructor(vuePage) {
 		this.vuePage = vuePage;
 		this.setup(10, 13, 40);
 	}
 
+	/*
+     * Name: reset
+     * Description: Resets the stacker game
+     * Return: None
+    */
 	reset() {
 		this.placedBlocks = [];
 		this.posx = 0;
@@ -15,6 +28,11 @@ export default class Stacker {
 		this.length = 4;
 	}
 
+	/*
+     * Name: placeBlock
+     * Description: Places the block that the user is holding and moves the cursor up
+     * Return: None
+    */
 	placeBlock() {
 		let lastBlock = this.getLastBlock();
 
@@ -69,10 +87,20 @@ export default class Stacker {
 		}
 	}
 
+	/*
+     * Name: getLastBlock
+     * Description: Returns the topmost placed block
+     * Return: A block
+    */
 	getLastBlock() {
 		return this.placedBlocks[this.placedBlocks.length - 1];
 	}
 
+	/*
+     * Name: setup
+     * Description: Sets up the Stacker Game
+     * Return: None
+    */
 	setup(width, height, cellSize) {
 		this.width = width;
 		this.height = height;

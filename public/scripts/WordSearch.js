@@ -42,26 +42,27 @@ const WORD_SELECTIONS =
                     'SHRIMP', 'MACARONS', 'YAKITORI', 'ONIGIRI']
 ]
 
-const cellDims = 50;
-const matX = 250;
-const matY = 10;
-const BOARD_SIZE = 10;
+const cellDims = 50; // Size of a cell
+const matX = 250; // Matrix x offset
+const matY = 50; // Matrix y offset
+const BOARD_SIZE = 10; // Size of game matrix
 export class WordSearch{
     constructor(vuePage){
-        this.rows = BOARD_SIZE;
-        this.cols = BOARD_SIZE;
-        this.activeWords = [];
-        this.activeMatrix = [];
-        this.wordsFound = [];
-        this.lastCell = null;
-        this.currentCell = null;
-        this.currentSelection = null;
-        this.over = false;
-        this.updateBoard();
-        this.vuePage = vuePage;
-        this.started = false;
-        this.startedTime = 0;
-        // Setup Display Timer
+        this.rows = BOARD_SIZE; // Number of rows in Matrix
+        this.cols = BOARD_SIZE; // Number of columns in Matrix
+        this.activeWords = [];  // Words for the current game
+        this.activeMatrix = []; // Matrix containing the game board
+        this.wordsFound = []; // Words found already
+        this.lastCell = null; // Previously selected cell
+        this.currentCell = null; // Currently selected cell
+        this.currentSelection = null; // Array of selected cells
+        this.over = false; // Stores the state of completion for the game
+        this.updateBoard(); 
+        this.vuePage = vuePage; // Stored reference of Vue Page for accessing variables
+        this.started = false; 
+        this.startedTime = 0; // 0 is placeholder value, stores seconds since EPOCH when the game starts
+        
+        // Setup the timer for the game
         setInterval(() => {
             if (this.started && !this.over){
                 this.vuePage.time = Math.round(new Date().getTime() / 1000) - this.startedTime;
@@ -90,12 +91,22 @@ export class WordSearch{
                 this.checkMouse();
             }
 
+            /*
+             * Name: displayBackground
+             * Description: Changes the background colour for the display
+             * Return: None
+            */
             // used to display background colour
             this.displayBackground = () => {
-                s.background(255, 146, 37);
+                //s.background(255, 146, 37); // orange
+                s.background(255, 255, 255); // white
             }
 
-
+            /*
+             * Name: displayMatrix
+             * Description: Displays the matrix on the screen
+             * Return: None
+            */   
             this.displayMatrix = () => {
                 s.push();
 
@@ -128,6 +139,11 @@ export class WordSearch{
                 s.pop();
             }
 
+            /*
+             * Name: displaySelection
+             * Description: Displays the selected words at the bottom
+             * Return: None
+            */
             this.displaySelection = () => {
                 let txt = this.selectedWord();
 
@@ -142,6 +158,11 @@ export class WordSearch{
                 s.pop();
             }
 
+            /*
+             * Name: displayWords
+             * Description: Display the words to find
+             * Return: None
+            */
             this.displayWords = () => {
                 s.push();
                 s.noStroke();
@@ -156,7 +177,11 @@ export class WordSearch{
 
                 s.pop();
             }
-
+            /*
+             * Name: checkMouse
+             * Description: Checks where the mouse is and selects cells
+             * Return: None
+            */
             this.checkMouse = () => {
                 if (this.over){ return; }
                 // if mouse isn't pressed
@@ -169,6 +194,7 @@ export class WordSearch{
                     return;
                 }
 
+                // If not started then start the timer
                 if (!this.started){
                     this.startedTime = Math.round(new Date().getTime() / 1000);
                     this.started = true;
@@ -185,10 +211,11 @@ export class WordSearch{
         this.sketch = new p5(sketch);
     }
 
-    end(){
-        this.over = true;
-    }
-
+    /*
+     * Name: reset
+     * Description: Resets the program
+     * Return: None
+    */
     reset(){
         this.activeWords = [];
         this.activeMatrix = [];
@@ -203,13 +230,25 @@ export class WordSearch{
         this.over = false;
     }
 
+    /*
+     * Name: updateBoard
+     * Description: Sets the words and the matrix 
+     * Return: None
+    */
     updateBoard() {
         this.activeWords = WORD_SELECTIONS[Math.floor(Math.random() * WORD_SELECTIONS.length)].sort((w1, w2) => Math.floor(Math.random() * (w1 + w2)) % 2 == 0).slice(0, 5);
         this.activeMatrix = this.genMatrix(this.activeWords);
     }
 
+    /*
+     * Name: genMatrix
+     * Description: Randomly generates a matrix for the game and inserts the words
+     * Return: 2D array of letters
+    */
     genMatrix(activeWords){
+        // Generates a randoom letter
         let randomLetter = () => ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"][Math.floor(Math.random() * 26)];
+        
         // Set up basic matrix
         let activeMatrix = [];
         for (let i = 0; i < this.rows; i++){
@@ -226,10 +265,11 @@ export class WordSearch{
                 let occupiedSquare = occupiedSquares[i];
                 let oRow = occupiedSquare.row;
                 let oCol = occupiedSquare.col;
+                // if square in array doesn't match desired square then skip
                 if (row != oRow || col != oCol){ continue; }
                 // else referring to same square
                 let oChar = occupiedSquare.char;
-                return oChar != ch;
+                return oChar != ch; // if different characters then return false
             }
             return false;
         }
@@ -337,6 +377,7 @@ export class WordSearch{
             }
             return true;
         }
+        // Array to select functions from
         let placementFunctions = [placeHorizontal, placeVertical, placeDiagonal];
         const numAttempts = 500; // imperfect solution to prevent infinite looping
         let words2Pop = [];
@@ -376,14 +417,29 @@ export class WordSearch{
         return activeMatrix;
     }
 
+    /*
+     * Name: isOver
+     * Description: Checks if the game has ended
+     * Return: None
+    */
     isOver(){
         return this.over;
     }
 
+    /*
+     * Name: enter
+     * Description: Resets the words found
+     * Return: None
+    */
     enter() {
         this.wordsFound = [];
     }
 
+    /*
+     * Name: validateSelection
+     * Description: Validates a selection of squares
+     * Return: None
+    */
     validateSelection() {
 
         let word = this.selectedWord();
@@ -397,17 +453,22 @@ export class WordSearch{
         // records word as found if word was found
         if (this.activeWords.includes(word)) { this.addFound(word, this.currentSelection); }
 
+        // If the game is over
         if (this.wordsFound.length === this.activeWords.length) {
             // stop timer
-            // record score
-            // something else
             this.over = true;
+            // record score
             accessHighscores.updateHighscores(this.calculateHighscore(Math.round(new Date().getTime() / 1000) - this.startedTime), prompt("You Win! Please enter username:"), "word_search");
             this.reset();
         }
 
     }
 
+    /*
+     * Name: calculateHighscore
+     * Description: Calculates the highscore of a game based on the duration and length of words
+     * Return: 
+    */
     calculateHighscore(duration){
         const MAX_SCORE_DURATION = 1000; // Max duration after which score is not affected
         const SCORE_DURATION_COEFFICIENT = 10;
@@ -415,9 +476,14 @@ export class WordSearch{
         for (let i = 0; i < this.activeWords.length; i++){
             c += this.activeWords[i].length;
         }
-        return Math.ceil(c* Math.max(1, (MAX_SCORE_DURATION - duration) * SCORE_DURATION_COEFFICIENT));
+        return Math.ceil(c * Math.max(1, (MAX_SCORE_DURATION - duration) * SCORE_DURATION_COEFFICIENT));
     }
 
+    /*
+     * Name: findCell
+     * Description: Returns cell information at a given pixel
+     * Return: An object with cell coordinates
+    */
     findCell(x, y) {
         let colIndex = Math.floor((x - matX) / cellDims);
         let rowIndex = Math.floor((y - matY) / cellDims);
@@ -427,10 +493,13 @@ export class WordSearch{
 
         // if there are valid indices, return the row and column
         return { "row": rowIndex, "col": colIndex};
-        //return {"row": this.row, "col": this.col}
     }
 
-    // return the selected word
+    /*
+     * Name: selectedWord
+     * Description: Retrives the selected word
+     * Return: String
+    */
     selectedWord() {
 
         // if there is no current selection, return blank
@@ -552,6 +621,11 @@ export class WordSearch{
      
     }
 
+    /*
+     * Name: isSelected
+     * Description: Checks if a given cell is selected
+     * Return: True if selected, else false
+    */
     isSelected(row, col) {
 
         if (!this.currentSelection) { return false; }
@@ -566,8 +640,18 @@ export class WordSearch{
 
     }
 
+    /*
+     * Name: addFound
+     * Description: Adds a word to the list of words found
+     * Return: None
+    */
     addFound(word, cells) { this.wordsFound.push( { "word": word, "cells": cells } ); }
 
+    /*
+     * Name: foundWord
+     * Description: Checks if a word has been found
+     * Return: True if found, else false
+    */
     foundWord(word) {
         for (let value of this.wordsFound) {
             if (value.word === word) { return true; }
@@ -576,6 +660,11 @@ export class WordSearch{
         return false;
     }
 
+    /*
+     * Name: foundCell
+     * Description: Checks if a word has been found that includes that cell
+     * Return: True if found, else false
+    */
     foundCell(row, col) {
         for (let value of this.wordsFound) {
             for (let valueCell of value.cells) {
