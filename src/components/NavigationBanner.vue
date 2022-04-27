@@ -1,5 +1,6 @@
 <template>
     <header>
+        <link rel="icon" type="image/x-icon" href="@/../public/favicon.ico">
         <nav>
             <router-link to="/">Home</router-link> |
             <router-link to="/MineSweeper">MineSweeper</router-link> |

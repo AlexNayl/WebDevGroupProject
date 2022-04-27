@@ -9,6 +9,7 @@
 	import WordSearchGame from '@/components/WordSearchGame.vue'
 	export default {
 		name: "WordSearch",
+		title: "WordSearch",
 		components: {
 			WordSearchGame,
 		},

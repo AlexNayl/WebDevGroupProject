@@ -9,6 +9,7 @@
     import HighScoresDisplay from '@/components/HighScoresDisplay.vue'
     export default {
         name: "HighScoresView",
+        title: "High Scores",
         components: {
             HighScoresDisplay,
         },

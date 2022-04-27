@@ -97,6 +97,7 @@
 
 export default {
     name: 'HomeView',
+    title: "Home",
     components: {
     }
 }

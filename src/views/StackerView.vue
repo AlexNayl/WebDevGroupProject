@@ -9,6 +9,7 @@
     import StackerGame from '@/components/StackerGame.vue'
     export default {
         name: "StackerView",
+        title: "Stacker",
         components: {
             StackerGame,
         },

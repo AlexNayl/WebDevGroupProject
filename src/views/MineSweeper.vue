@@ -9,6 +9,7 @@
     import MineSweeperGame from '@/components/MineSweeperGame.vue'
     export default {
         name: "MineSweeper",
+        title: "Minesweeper",
         components: {
             MineSweeperGame,
         },

@@ -9,7 +9,7 @@
     <div>
         <input type="range" min="5" max="50" value="10" class="slider" id="bombs-slider">
     </div>
-    <button @click="reset" id="resetButton">Reset</button>
+    <button @click="reset" id="resetButton">New Game</button>
     <div id="gameDiv"></div>
 </template>
 
@@ -270,9 +270,6 @@
         }
     }
     import '@/../public/stylesheets/minesweeper.css';
-    //const BOARD_SIZE = 9; // Can change later this. Represents an 9x9 board
-    //const NUM_BOMBS = 10; //
-    
     export default {
         name: "MineSweeperGame",
         data(){

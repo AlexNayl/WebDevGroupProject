@@ -9,6 +9,7 @@
     import GraphCreator from '@/components/GraphCreator.vue'
     export default {
         name: "ScoreVisualization",
+        title: "Graphs",
         components: {
             GraphCreator,
         },

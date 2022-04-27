@@ -1,11 +1,12 @@
 <template>
-    <label for="game">Choose a game:</label>
+    <label for="game">Choose a game: </label>
     <select v-model="option" name="game" id="optionSelector" class="custom-select">
         <option value="Minesweeper">Minesweeper</option>
         <option value="Wordsearch">Wordsearch</option>
         <option value="Snake">Snake</option>
         <option value="Stacker">Stacker</option>
     </select>
+    <br><br><br><br>
     <div id="graphDiv">
     </div>
 </template>
@@ -124,5 +125,9 @@
 <style>
     text{
         font-family: Arial;
+    }
+
+    label{
+        padding-right: 10px;
     }
 </style>

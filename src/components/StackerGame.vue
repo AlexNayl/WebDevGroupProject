@@ -19,6 +19,7 @@
 			this.posx = 0;
 			this.posy = this.height - 1;
 			this.dir = 1;
+			this.length = 4;
 		}
 
 		placeBlock() {
@@ -66,6 +67,7 @@
 
 			this.vuePage.score += this.length;
 
+			// Win the game
 			if (this.posy < 0) {
 				this.running = false;
 				this.vuePage.running = false;

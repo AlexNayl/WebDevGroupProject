@@ -9,6 +9,7 @@
     import SnakeGame from '@/components/SnakeGame.vue'
     export default {
         name: "SnakeView",
+        title: "Snake Game",
         components: {
             SnakeGame,
         },
