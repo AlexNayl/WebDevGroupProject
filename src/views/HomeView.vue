@@ -5,8 +5,10 @@
 			<p class="w-50">Welcome to WebDevGroupProject. This application runs primarily using Vue and Node JS. This application offers a variety of games which all allow one to earn a highscore. These highscores are sent to a database hosted by a server and results can be viewed in the Highscores and Graphs tabs.</p>
 		</div>
 		<div class="container">
+			<!-- Games -->
 			<h2>Games</h2>
 			<div class="row d-flex justify-content-center">
+				<!-- Minesweeper -->
 				<div class="card col col-md-3">
 					<div class="card-body">
 						<img class="card-img-top" src="@/../public/images/minesweeper.png" alt="MineSweeper">
@@ -15,6 +17,7 @@
 						<a href="/MineSweeper" class="btn btn-primary">Play</a>
 					</div>
 				</div>
+				<!-- Snake -->
 				<div class="card col col-md-3">
 					<div class="card-body">
 						<img class="card-img-top" src="@/../public/images/snake.png" alt="Snake">
@@ -23,6 +26,7 @@
 						<a href="/Snake" class="btn btn-primary">Play</a>
 					</div>
 				</div>
+				<!-- Word Search -->
 				<div class="card col col-md-3">
 					<div class="card-body">
 						<img class="card-img-top" src="@/../public/images/wordsearch.png" alt="Word Search">
@@ -31,6 +35,7 @@
 						<a href="/WordSearch" class="btn btn-primary">Play</a>
 					</div>
 				</div>
+				<!-- Stacker -->
 				<div class="card col col-md-3">
 					<div class="card-body">
 						<img class="card-img-top" src="@/../public/images/stacker.png" alt="Stacker">
@@ -40,8 +45,10 @@
 					</div>
 				</div>
 			</div>
+			<!-- Utilities -->
 			<h2>Utilities</h2>
 			<div class="row d-flex justify-content-center">
+				<!-- High Scores -->
 				<div class="card col col-md-3">
 					<div class="card-body">
 						<h5 class="card-title">High Scores</h5>
@@ -49,6 +56,7 @@
 						<a href="/HighScores" class="btn btn-primary">View</a>
 					</div>
 				</div>
+				<!-- Graph -->
 				<div class="card col col-md-3">
 					<div class="card-body">
 						<h5 class="card-title">Graph</h5>
@@ -58,6 +66,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- Contributors -->
 		<h2>Contributors</h2>
 		<div class="w-100 d-flex justify-content-center">
 			<table class="table w-50">
