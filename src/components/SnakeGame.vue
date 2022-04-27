@@ -112,9 +112,7 @@
                         // Collision check
                         if (this.isCoordInTail(this.x, this.y)) {
                             // Hit the tail, game over
-                            console.log("this.running1", this.running);
                             this.reset();
-                            console.log("this.running2", this.running);
                         }
 
                         // Food check

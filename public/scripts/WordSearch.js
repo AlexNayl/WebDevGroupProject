@@ -10,6 +10,7 @@
  */
 
 import p5 from "p5";
+import accessHighscores from './access_highscores.js';
 
 /*
 const SAMA = [
@@ -56,7 +57,7 @@ const SAMD = [
     ['I', 'H', 'S', 'O', 'T', 'A', 'S', 'Y'],
 ];
 */
-const SAME = [
+/*const SAME = [
     ['P', 'G', 'O', 'H', 'S', 'U', 'P', 'W'],
     ['W', 'D', 'R', 'I', 'O', 'H', 'U', 'P'],
     ['J', 'N', 'F', 'I', 'O', 'G', 'E', 'M'],
@@ -166,17 +167,56 @@ const SEMEW = ['LASAGNA', 'QUINOA', 'CHICKEN', 'LIME', 'PUTINE', 'BURRITO', 'FAJ
 
 */
 
-const SAMEW = ['GRIFFIN', 'WYVERN', 'PEGASUS', 'PHOENIX', 'TITAN'];
-
+//const SAMEW = ['GRIFFIN', 'WYVERN', 'PEGASUS', 'PHOENIX', 'TITAN'];
+const WORD_SELECTIONS = 
+[
+['SCOPE', 'let', 'HTML', 'COBOL', 'UTIL'],
+['CODE', 'CSS', 'JAVA', 'SWIFT', 'STACK'],
+['CLANCY', 'DAVINCI', 'HAMILTON', 'TESLA', 'TURING'],
+['YUKIHIRO', 'SATOSHI', 'GOSLING', 'BJARNE'],
+['DOG', 'CAT', 'ORCA', 'FOX', 'SQUID', 'WOLF', 'FALCON', 'PENGIUN'],
+['ACTION', 'HORROR', 'COMEDY', 'DRAMA', 'THRILLER', 'SCIFI', 'ROMANCE', 'CRIME'],
+['PINE', 'MAPLE', 'BIRCH', 'OAK', 'GINKO', 'CHERRY', 'SEQUOIA', 'ASH', 'SPRUCE'],
+['DEADPOOL', 'SUPERMAN', 'BATMAN', 'IRONMAN', 'ANTMAN', 'FLASH', 'HULK'],
+['VENENO', 'HURACAN', 'JESKO', 'SENNA', 'CHIRON', 'DIVO', 'ENZO', 'STRADALE', 'BATTISTA', 'CHARGER'],
+['STARSHIP', 'NEWGLENN', 'FALCON', 'ELECTRON', 'ANTARES', 'ARES', 'MINOTAUR', 'DELTA', 'ATLAS', 'ATHENA',
+                        'PEGASUS', 'TITAN', 'SATURN', 'COLUMBIA', 'ATLANTIS'],
+['ROSE', 'DAISY', 'LILAC', 'LILY', 'IRIS', 'JASMINE', 'POPPY', 'TULIP', 'LAVENDER',
+                        'PEONY', 'PRIMROSE', 'ORCHID'],
+['COFFEE', 'TEA', 'BOBA', 'WATER', 'JUICE', 'WINE', 'VODKA', 'WHISKEY',
+                        'RUM', 'SMOOTHIE', 'SODA', 'BEER', 'LEMONADE', 'MILK'],
+['UKRAINE', 'TAIWAN', 'INDIA', 'FINLAND', 'SWEDEN', 'DENMARK', 'NORWAY', 'JAPAN',
+                        'HONGKONG', 'FRANCE', 'ITALY', 'SPAIN', 'GERMANY', 'POLAND', 'CANADA', 'MEXICO'],
+['GALILEO', 'NEWTON', 'HUBBLE', 'ARECIBO', 'WEBB', 'CANADARM', 'ZARYA', 'POISK', 'RASSVET', 'BEAM', 'HARMONY',
+                        'UNITY', 'DESTINY', 'NAUKA', 'NICER', 'DEXTRE', 'BISHOP', 'KERBAL', 'PRICHAL'],
+['SOCCER', 'HOCKEY', 'BASEBALL', 'FOOTBALL', 'RUGBY', 'CRICKET', 'TENNIS', 'SKIING',
+                    'CURLING', 'FENCING', 'GOFLING', 'SAILING', 'ROWING'],
+['OILERS', 'WHALERS', 'PENGUINS', 'KINGS', 'JETS', 'FLAMES', 'PANTHERS', 'KRAKEN', 'WILD', 'BRUINS', 'SABRES', 'CANUCKS', 'CAPITALS'],
+['APPLE', 'GOOGLE', 'SAMSUNG', 'TESLA', 'FORD', 'DISNEY', 'HASBRO', 'SONY', 'HILTON', 'MONDELEZ', 'INTEL',
+                    'NVIDIA', 'BOEING', 'TOYOTA', 'MATTEL', 'NIKE', 'AMAZON', 'HUAWEI'],
+['HAIDA', 'BISMARCK', 'YAMATO', 'HOOD', 'ROMA', 'IOWA', 'NIMITZ',
+                    'MIDWAY', 'FUBUKI', 'GEARING', 'HALLAND', 'VANGUARD'],
+['WARTHOG', 'ARROW', 'CANUCK', 'RAPTOR', 'HORNET', 'FALCON', 'TYPHOON', 'HARRIER',
+                        'RAFALE', 'EAGLE', 'HERCULES', 'MUSTANG', 'SPITFIRE', 'CORSAIR', 'OSPREY', 'SPIRIT', 'PREDATOR'],
+['TETRIS', 'STARFOX',
+                    'ZELDA', 'DESTINY', 'POKEMON', 'PACMAN', 'FROGGER', 'ARK', 'DOTA'],
+['THORN', 'OSA', 'ARUNI', 'IANA', 'WARDEN', 'NOMAD', 'KAID', 'LION', 'FINKA', 'DOKKAEBI', 'YING', 'LESION',
+                    'JACKAL', 'BUCK', 'FROST', 'MUTE', 'SMOKE', 'ASH', 'CASTLE', 'MONTAGNE', 'FUZE', 'KAPKAN', 'AZAMI'],
+['RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'PURPLE', 'BROWN', 'BLACK', 'CYAN', 'MAGENTA',
+                    'CRIMSON', 'LIME', 'INDIGO', 'MAROON', 'AMBER', 'SCARLET', 'MUSTARD'],
+['PARASAUR', 'RAPTOR', 'BARYONYX', 'TROODON'],
+['LASAGNA', 'QUINOA', 'CHICKEN', 'LIME', 'PUTINE', 'BURRITO', 'FAJITAS', 'CORN',
+                    'SHRIMP', 'MACARONS', 'YAKITORI', 'ONIGIRI']
+]
 
 const cellDims = 50;
 const matX = 250;
 const matY = 10;
 
 export class WordSearch{
-    constructor(sliderValue){
-        this.rows = sliderValue;
-        this.cols = sliderValue;
+    constructor(vuePage){
+        this.rows = 8;
+        this.cols = 8;
         this.activeWords = [];
         this.activeMatrix = [];
         this.wordsFound = [];
@@ -185,7 +225,15 @@ export class WordSearch{
         this.currentSelection = null;
         this.over = false;
         this.updateBoard();
-
+        this.vuePage = vuePage;
+        this.started = false;
+        this.startedTime = 0;
+        // Setup Display Timer
+        setInterval(() => {
+            if (this.started && !this.over){
+                this.vuePage.time = Math.round(new Date().getTime() / 1000) - this.startedTime;
+            }
+        }, 1000); // Update timer every second
         const sketch = (s) => {
 
             // create canvas area
@@ -195,6 +243,9 @@ export class WordSearch{
 
 
             s.draw = () => {
+                if (this.over){
+                    return;
+                }
                 s.clear();
 
                 this.displayBackground(); // works
@@ -273,16 +324,8 @@ export class WordSearch{
                 s.pop();
             }
 
-
-            /*s.mousePressed = () => {
-                console.log("mouse pressed")
-                if (!this.lastCell) { this.lastCell = this.findCell(s.mouseX, s.mouseY); }
-                let nextCell = this.findCell(this.mouseX, this.mouseY);
-
-                if (nextCell) { this.currentCell = nextCell; }
-                this.currentSelection = this.findSelection();
-            }*/
             this.checkMouse = () => {
+                if (this.over){ return; }
                 // if mouse isn't pressed
                 if (!s.mouseIsPressed) {
                     this.validateSelection();
@@ -291,6 +334,11 @@ export class WordSearch{
                     this.currentCell = null;
                     this.currentSelection = null;
                     return;
+                }
+
+                if (!this.started){
+                    this.startedTime = Math.round(new Date().getTime() / 1000);
+                    this.started = true;
                 }
 
                 if (!this.lastCell) { this.lastCell = this.findCell(s.mouseX, s.mouseY); }
@@ -304,9 +352,165 @@ export class WordSearch{
         this.sketch = new p5(sketch);
     }
 
+    end(){
+        this.over = true;
+    }
+
+    reset(){
+        this.activeWords = [];
+        this.activeMatrix = [];
+        this.wordsFound = [];
+        this.lastCell = null;
+        this.currentCell = null;
+        this.currentSelection = null;
+        this.over = false;
+        this.updateBoard();
+        this.started = false;
+        this.startedTime = 0;
+        this.over = false;
+    }
+
     updateBoard() {
-        this.activeWords = SAMEW;
-        this.activeMatrix = SAME;
+        //this.activeWords = ["TESTWORD"];
+        WORD_SELECTIONS.length;
+        this.activeWords = WORD_SELECTIONS[Math.floor(Math.random() * WORD_SELECTIONS.length)].sort((w1, w2) => Math.floor(Math.random() * (w1 + w2)) % 2 == 0).slice(0, 5);
+        this.activeMatrix = this.genMatrix(this.activeWords);
+        console.log(this.activeMatrix)
+    }
+
+    genMatrix(activeWords){
+        let randomLetter = () => ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"][Math.floor(Math.random() * 26)];
+        // Set up basic matrix
+        let activeMatrix = [];
+        for (let i = 0; i < this.rows; i++){
+            activeMatrix.push([]);
+            for (let j = 0; j < this.cols; j++){
+                activeMatrix[i][j] = randomLetter();
+            }
+        }
+
+        // Add in active words
+        let occupiedSquares = [];
+        let checkOccupiedSquares = (ch, row, col) => {
+            for (let i = 0; i < occupiedSquares.length; i++){
+                let occupiedSquare = occupiedSquares[i];
+                let oRow = occupiedSquare.row;
+                let oCol = occupiedSquare.col;
+                if (row != oRow || col != oCol){ continue; }
+                // else referring to same square
+                let oChar = occupiedSquare.char;
+                return oChar != ch;
+            }
+            return false;
+        }
+        let placeHorizontal = (word, row, col, reverse) => {
+            let curIndex = 0;
+            let dir = 1;
+            if (reverse){
+                curIndex = word.length - 1;
+                dir = -1;
+            }
+            let endCol = col + dir * word.length;
+            
+            if (endCol < 0 || endCol > this.cols){ return false; }
+
+            // Check if can place word in the spot
+            let nCol = col;
+            let nCurIndex = curIndex;
+            while(nCol != endCol){
+                let ch = word[nCurIndex];
+                if (checkOccupiedSquares(ch, row, nCol)){ return false; }
+                nCol += dir;
+                nCurIndex += dir;
+            }
+
+            // Place the word
+            nCol = col;
+            nCurIndex = curIndex;
+            while(nCol != endCol){
+                let ch = word[nCurIndex];
+                activeMatrix[row][nCol] = ch;
+                occupiedSquares.push({"row": row, "col": nCol, "char": ch})
+                nCol += dir;
+                nCurIndex += dir;
+            }
+            return true;
+
+        }
+        let placeVertical = (word, row, col, reverse) => {
+            let curIndex = 0;
+            let dir = 1;
+            if (reverse){
+                curIndex = word.length - 1;
+                dir = -1;
+            }
+            let endRow = row + dir * word.length;
+            
+            if (endRow < 0 || endRow > this.rows){ return false; }
+
+            // Check if can place word in the spot
+            let nRow = row;
+            let nCurIndex = curIndex;
+            while(nRow != endRow){
+                let ch = word[nCurIndex];
+                if (checkOccupiedSquares(ch, nRow, col)){ return false; }
+                nRow += dir;
+                nCurIndex += dir;
+            }
+
+            // Place the word
+            nRow = row;
+            nCurIndex = curIndex;
+            while(nRow != endRow){
+                let ch = word[nCurIndex];
+                activeMatrix[nRow][col] = ch;
+                occupiedSquares.push({"row": nRow, "col": col, "char": ch})
+                nRow += dir;
+                nCurIndex += dir;
+            }
+            return true;
+
+        }
+        let placeDiagonal = placeVertical; // TODO: Make place diagonal function
+        let placementFunctions = [placeHorizontal, placeVertical, placeDiagonal];
+        const numAttempts = 500; // imperfect solution to prevent infinite looping
+        let words2Pop = [];
+        for (let i = 0; i < activeWords.length; i++){
+            let activeWord = activeWords[i];
+            let attempted = 0;
+            while(attempted < numAttempts){
+                let pRow = Math.floor(Math.random() * this.rows);
+                let pCol = Math.floor(Math.random() * this.cols);
+                let pFIndex = Math.floor(Math.random() * 3);
+                let reverse = Math.floor(Math.random() * 2) == 0;
+                let placementFunction = placementFunctions[pFIndex];
+                let result = placementFunction(activeWord, pRow, pCol, reverse);
+                if (result){
+                    console.log(placementFunction, reverse, pRow, pCol)
+                    break;
+                }
+                attempted++;
+            }
+            console.log("attempts", attempted);
+            if (attempted == numAttempts){
+                words2Pop.push(i);
+            }
+            // On last word and no words placed yet
+            if (i == activeWords.length - 1 && words2Pop.length == activeWords.length){
+                console.log("last chance!")
+                placeHorizontal(activeWord, 0, 0, false);
+            }
+        }
+
+        words2Pop.reverse();
+
+        // Remove unplaced words
+        for (let i = 0; i < words2Pop.length; i++){
+            console.log("Popping", this.activeWords[words2Pop[i]])
+            this.activeWords.pop(words2Pop[i]);
+        }
+
+        return activeMatrix;
     }
 
     isOver(){
@@ -335,6 +539,8 @@ export class WordSearch{
             // record score
             // something else
             this.over = true;
+            //accessHighscores.updateHighscores(this.vuePage.time, prompt("Username:"), "wordsearch");
+            accessHighscores.doNothing();
         }
 
     }
