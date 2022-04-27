@@ -179,14 +179,13 @@ export class WordSearch{
         this.cols = sliderValue;
         this.activeWords = [];
         this.activeMatrix = [];
-        this.found = [];
+        this.wordsFound = [];
         this.lastCell = null;
         this.currentCell = null;
         this.currentSelection = null;
         this.over = false;
         
         // I don't know the origin for these
-        this.wordsFound = [];
         this.updateBoard();
 
         const sketch = (s) => {
@@ -267,7 +266,8 @@ export class WordSearch{
                 
                 for (var index = 0; index < this.activeWords.length; index++) {
                     
-                    s.fill(this.foundWord(this.activeWords[index]) ? "Gray" : "White");
+                    // makes a word in wordbank grey if found, else display as black
+                    s.fill(this.foundWord(this.activeWords[index]) ? "Gray" : "Black");
                     s.text(this.activeWords[index], 30, matY + 20 + index * 50);
                     
                 }
@@ -298,7 +298,7 @@ export class WordSearch{
     }
 
     updateBoard() {
-        this.activeWords = SEMEW;
+        this.activeWords = SAMEW;
         this.activeMatrix = SAME;
     }
 
