@@ -9,6 +9,13 @@
 | Bence     Takacs   | [Username](https://github.com/BenceTakacs15)|
 
 
+## How to Run the Application
+
+Run command:
+```
+start cmd /c node node_server.js ^& pause && start cmd /c npm run serve
+```
+in the WebDevGroupProject folder
 
 
 ## How To Install Dependencies for Project
