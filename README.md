@@ -9,6 +9,13 @@
 | Bence     Takacs   | [Username](https://github.com/BenceTakacs15)|
 
 
+## How to Run the Application
+Run commands:
+```
+npm run serve
+node node_server.js
+```
+in seperate command prompts
 
 
 ## How To Install Dependencies for Project
