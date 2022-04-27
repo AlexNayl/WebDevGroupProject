@@ -10,6 +10,8 @@
 	<div>
 		<button @click="reset" id="resetButton">Reset</button>
 	</div>
+
+	<div id="game"></div>
 </template>
 
 <script>
@@ -27,9 +29,9 @@
 			startup: function() {
 				this.boardSize = $("#board-size-slider").val();
 				this.game = new aws.WordSearch(this.boardSize);
-				while(!this.game.isOver()){
-					this.game.loop();
-				}
+				//while(!this.game.isOver()){
+				//	this.game.loop();
+				//}
 			}
 		},
 		mounted(){
