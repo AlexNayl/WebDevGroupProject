@@ -1,10 +1,13 @@
 <template>
+    <p>Click on a header to sort by score!</p>
+    <p>Double click to reverse sorting direction!</p>
     <table class="table">
         <thead>
             <tr>
                 <th scope="col" @click="sort('user_id')">Name</th>
                 <th scope="col" @click="sort('minesweeper')">Minesweeper Score</th>
                 <th scope="col" @click="sort('snake')">Snake Score</th>
+                <th scope="col" @click="sort('word_search')">Wordsearch Score</th>
                 <th scope="col" @click="sort('stacker')">Stacker Score</th>
             </tr>
         </thead>
@@ -13,6 +16,7 @@
                 <td>{{highscore.user_id}}</td>
                 <td>{{highscore.minesweeper}}</td>
                 <td>{{highscore.snake}}</td>
+                                <td>{{highscore.word_search}}</td>
                 <td>{{highscore.stacker}}</td>
             </tr>
         </tbody>

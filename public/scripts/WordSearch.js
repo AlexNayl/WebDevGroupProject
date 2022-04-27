@@ -371,11 +371,8 @@ export class WordSearch{
     }
 
     updateBoard() {
-        //this.activeWords = ["TESTWORD"];
-        WORD_SELECTIONS.length;
         this.activeWords = WORD_SELECTIONS[Math.floor(Math.random() * WORD_SELECTIONS.length)].sort((w1, w2) => Math.floor(Math.random() * (w1 + w2)) % 2 == 0).slice(0, 5);
         this.activeMatrix = this.genMatrix(this.activeWords);
-        console.log(this.activeMatrix)
     }
 
     genMatrix(activeWords){
@@ -486,18 +483,17 @@ export class WordSearch{
                 let placementFunction = placementFunctions[pFIndex];
                 let result = placementFunction(activeWord, pRow, pCol, reverse);
                 if (result){
-                    console.log(placementFunction, reverse, pRow, pCol)
                     break;
                 }
                 attempted++;
             }
-            console.log("attempts", attempted);
+
+            // If max attempts then need to remove word from game because couldn't place it
             if (attempted == numAttempts){
                 words2Pop.push(i);
             }
             // On last word and no words placed yet
             if (i == activeWords.length - 1 && words2Pop.length == activeWords.length){
-                console.log("last chance!")
                 placeHorizontal(activeWord, 0, 0, false);
             }
         }
@@ -506,7 +502,6 @@ export class WordSearch{
 
         // Remove unplaced words
         for (let i = 0; i < words2Pop.length; i++){
-            console.log("Popping", this.activeWords[words2Pop[i]])
             this.activeWords.pop(words2Pop[i]);
         }
 
@@ -539,8 +534,8 @@ export class WordSearch{
             // record score
             // something else
             this.over = true;
-            //accessHighscores.updateHighscores(this.vuePage.time, prompt("Username:"), "wordsearch");
-            accessHighscores.doNothing();
+            accessHighscores.updateHighscores(Math.round(new Date().getTime() / 1000) - this.startedTime, prompt("You Win! Please enter username:"), "word_search");
+            this.reset();
         }
 
     }
@@ -606,11 +601,6 @@ export class WordSearch{
         for (let col = this.lastCell.col; col != this.currentCell.col + delta; col += delta) {
 
             let row = this.lastCell.row;
-            if (this.activeMatrix[row] == null){
-                console.log("error found", row, col);
-                console.log(this.lastCell);
-            }
-            console.log("horizontal selection");
             let character = this.activeMatrix[row][col];
 
             characterArray.push( { "row": row, "col": col, "character": character } );
