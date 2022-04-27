@@ -25,7 +25,6 @@
 
 <script>
     import accessHighscores from '@/../public/scripts/access_highscores.js';
-    import '@/../public/stylesheets/highscores.css';
     
     export default {
         name: "HighScoresDisplay",

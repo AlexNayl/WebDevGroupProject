@@ -6,7 +6,6 @@
 
 <script>
 	import Snake from "@/../public/scripts/snake.js";
-    import '@/../public/stylesheets/snake.css';
 
     export default {
         name: "SnakeGame",

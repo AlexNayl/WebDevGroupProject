@@ -6,7 +6,6 @@
 
 <script>
 	import Stacker from "@/../public/scripts/stacker.js";
-	import '@/../public/stylesheets/stacker.css';
 
     export default {
         name: "StackerGame",
