@@ -457,6 +457,14 @@ export class WordSearch{
     }
      
     addFound(word, cells) { this.wordsFound.push( { word: word, cells: cells } ); }
+    
+    foundWord(word) {
+        for (var value of this.wordsFound) {
+            if (value.word === word) { return true; }
+        }
+        
+        return false;
+    }
      
     foundCell(row, col) {
      
@@ -473,4 +481,5 @@ export class WordSearch{
         return false;
         
     }
+    
 }
