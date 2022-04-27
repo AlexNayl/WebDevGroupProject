@@ -184,33 +184,31 @@ export class WordSearch{
         this.currentCell = null;
         this.currentSelection = null;
         this.over = false;
-        
-        // I don't know the origin for these
         this.updateBoard();
 
         const sketch = (s) => {
+
+            // create canvas area
             s.setup = () => {
-                s.createCanvas(400, 400).parent("game");
+                s.createCanvas(1200, 800).parent("game");
             }
+
 
             s.draw = () => {
                 s.clear();
         
-                this.displayBackground();
-                this.display();
+                this.displayBackground(); // works
+
+                this.displayMatrix();
+                this.displaySelection();
+                this.displayWords(); // works
+
                 this.checkMouse();
             }
 
             // used to display background colour
             this.displayBackground = () => {
-                s.noStroke();
                 s.background(255, 146, 37);
-            }
-
-            this.display = () => {
-                this.displayMatrix();
-                this.displaySelection();
-                this.displayWords();
             }
 
             
