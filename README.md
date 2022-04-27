@@ -2,15 +2,16 @@
 
 | Group Member Name | GitHub Username (GitHub URL)|
 | :------------------------:|:--------------------------------------:|
-| Andrew Clegg | [Username](https://github.com/Andrew-Clegg) |
-| Samuel    Jones    | [Username](https://github.com/samuel-jones-uoit) |
-| Zachary   Windover | [Username](https://github.com/ZacharyWindover) |
-| Alexander Naylor   | [Username](https://github.com/AlexNayl)|
-| Bence     Takacs   | [Username](https://github.com/BenceTakacs15)|
+| Andrew Clegg | [Andrew-Clegg](https://github.com/Andrew-Clegg) |
+| Samuel    Jones    | [samuel-jones-uoit](https://github.com/samuel-jones-uoit) |
+| Zachary   Windover | [ZacharyWindover](https://github.com/ZacharyWindover) |
+| Alexander Naylor   | [AlexNayl](https://github.com/AlexNayl)|
+| Bence     Takacs   | [BenceTakacs15](https://github.com/BenceTakacs15)|
 
 
 ## How to Run the Application
-
+Execute `run.bat` script
+OR
 Run command:
 ```
 start cmd /c node node_server.js ^& pause && start cmd /c npm run serve
@@ -19,8 +20,8 @@ in the WebDevGroupProject folder
 
 
 ## How To Install Dependencies for Project
-```
 Navigate to WebDevGroupProject and run command:
+```
 npm install
 ```
 
