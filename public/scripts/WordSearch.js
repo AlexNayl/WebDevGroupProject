@@ -438,7 +438,6 @@ export class WordSearch{
             let curIndex = 0;
             let dir = 1;
             if (reverse){
-                curIndex = word.length - 1;
                 dir = -1;
             }
             let endRow = row + dir * word.length;
@@ -452,7 +451,7 @@ export class WordSearch{
                 let ch = word[nCurIndex];
                 if (checkOccupiedSquares(ch, nRow, col)){ return false; }
                 nRow += dir;
-                nCurIndex += dir;
+                nCurIndex += 1;
             }
 
             // Place the word
@@ -463,7 +462,7 @@ export class WordSearch{
                 activeMatrix[nRow][col] = ch;
                 occupiedSquares.push({"row": nRow, "col": col, "char": ch})
                 nRow += dir;
-                nCurIndex += dir;
+                nCurIndex += 1;
             }
             return true;
 
@@ -534,10 +533,20 @@ export class WordSearch{
             // record score
             // something else
             this.over = true;
-            accessHighscores.updateHighscores(Math.round(new Date().getTime() / 1000) - this.startedTime, prompt("You Win! Please enter username:"), "word_search");
+            accessHighscores.updateHighscores(this.calculateHighscore(Math.round(new Date().getTime() / 1000) - this.startedTime), prompt("You Win! Please enter username:"), "word_search");
             this.reset();
         }
 
+    }
+
+    calculateHighscore(duration){
+        const MAX_SCORE_DURATION = 1000; // Max duration after which score is not affected
+        const SCORE_DURATION_COEFFICIENT = 10;
+        let c = 0;
+        for (let i = 0; i < this.activeWords.length; i++){
+            c += this.activeWords[i].length;
+        }
+        return Math.ceil(c* Math.max(1, (MAX_SCORE_DURATION - duration) * SCORE_DURATION_COEFFICIENT));
     }
 
     findCell(x, y) {

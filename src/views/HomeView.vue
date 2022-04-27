@@ -2,7 +2,7 @@
     <div class="home">
 		<h2>About</h2>
 		<div class="w-100 d-flex justify-content-center">
-			<p class="w-50">Welcome to WebDevGroupProject. This application runs primarily using Vue and Node JS. This application offers a variety of games which all allow one to earn a highscore. These highscores are sent to a database hosted by a server and results can be viewed in the Highscores and Graphs tabs.</p>
+			<p class="w-50">Welcome to WebDevGroupProject. This application runs primarily using Vue and Node JS. This application offers a variety of games which all allow one to earn a highscore. These highscores are sent to a database hosted by a server and results can be viewed in the High Scores and Graphs tabs.</p>
 		</div>
 		<div class="container">
 			<!-- Games -->
