@@ -201,10 +201,3 @@
         },
     }
 </script>
-
-<style>
-.p5canvas {
-    margin: auto;
-    border: 1px solid black;
-}
-</style>
