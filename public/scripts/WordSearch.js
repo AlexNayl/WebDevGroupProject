@@ -201,6 +201,7 @@ export class WordSearch{
                 this.checkMouse();
             }
 
+            // used to display background colour
             this.displayBackground = () => {
                 s.noStroke();
                 s.background(255, 146, 37);
@@ -212,6 +213,7 @@ export class WordSearch{
                 this.displayWords();
             }
 
+            
             this.displayMatrix = () => {
                 s.push();
                 
@@ -320,10 +322,10 @@ export class WordSearch{
         // exits if 
         if (this.foundWord(word)) { return; }
         
-        // records word found if word was found
+        // records word as found if word was found
         if (this.activeWords.includes(word)) { this.addFound(word, this.currentSelection); }
         
-        if (this.found.length === this.activeWords.length) {
+        if (this.wordsFound.length === this.activeWords.length) {
             // stop timer
             // record score
             // something else
@@ -357,9 +359,14 @@ export class WordSearch{
         
     }
      
+    /* 
+     * Function used to check if currently selected characters
+     * are horizontal, vertical, or diagonal, and will return
+     * array of currently highlighted characters
+     */
     findSelection() {
      
-        // if there is no last cell or current cell, return null
+        // if there is one or no cells selected, will return null
         if (!this.lastCell || !this.currentCell) { return null; }
         
         // execute functions in if else order
@@ -368,6 +375,10 @@ export class WordSearch{
      
     }
      
+    /* 
+     * Checks to see if selected cells are in horizontal line 
+     * returns array of currently selected horizontal characters
+     */
     horizontalSelection() {
      
         // if either last cell or current cell are null, return null
@@ -393,6 +404,9 @@ export class WordSearch{
      
     }
      
+    /*
+     * Checks to see if selected cells are in vertical line
+     */
     verticalSelection() {
      
         // if either last cell or current cell are null, return null
@@ -419,6 +433,11 @@ export class WordSearch{
      
     }
      
+    /*
+     * Checks to see if the user is highlighting the characters
+     * in a diagonal line. If they aren't, function will stop
+     * user from highlighting characters in a random order
+     */
     diagonalSelection() {
      
         if (!this.lastCell || !this.currentCell) { return null; }
@@ -468,19 +487,13 @@ export class WordSearch{
     }
      
     foundCell(row, col) {
-     
         for (var value of this.wordsFound) {
-        
             for (var valueCell of value.cells) {
-            
                 if (valueCell.row === row && valueCell.col === col) { return true; }
-            
             }
-        
         }
         
         return false;
         
-    }
-    
+    }  
 }
