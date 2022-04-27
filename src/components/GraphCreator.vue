@@ -4,6 +4,7 @@
         <option value="Minesweeper">Minesweeper</option>
         <option value="Wordsearch">Wordsearch</option>
         <option value="Snake">Snake</option>
+        <option value="Stacker">Stacker</option>
     </select>
     <div id="graphDiv">
     </div>

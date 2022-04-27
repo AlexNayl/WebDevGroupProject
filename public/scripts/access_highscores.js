@@ -36,6 +36,23 @@ export default {
         }
 	},
 
+	async updateHighscoresStacker(score, username) {
+		let url = new URL("http://localhost:4500/addhighscore");
+        url.searchParams.append("username", username);
+        url.searchParams.append("game", "stacker");
+        url.searchParams.append("score", score);
+        try{
+            let response = await fetch(url);
+            if (response.ok){
+                console.log(response);
+            }else{
+                throw response;
+            }
+        }catch(e){
+            console.error("Error fetching!\n", e);
+        }
+	},
+
     async getHighScores(){
         try{
             let response = await fetch("http://localhost:4500/gethighscores");

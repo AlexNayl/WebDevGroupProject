@@ -6,7 +6,7 @@
 
 <script>
 	import p5 from "p5";
-	//import accessHighscores from '@/../public/scripts/access_highscores.js';
+	import accessHighscores from '@/../public/scripts/access_highscores.js';
 
 	class Stacker {
 		constructor(vuePage) {
@@ -15,11 +15,10 @@
 		}
 
 		reset() {
-			this.placedBlocks.clear();
+			this.placedBlocks = [];
 			this.posx = 0;
 			this.posy = this.height - 1;
 			this.dir = 1;
-			this.vuePage.score = 0;
 		}
 
 		placeBlock() {
@@ -32,6 +31,7 @@
 					this.running = false;
 					this.vuePage.running = false;
 					this.reset();
+					this.vuePage.score = 0;
 					return;
 				}
 			}
@@ -65,6 +65,13 @@
 			this.posy--;
 
 			this.vuePage.score += this.length;
+
+			if (this.posy < 0) {
+				this.running = false;
+				this.vuePage.running = false;
+				accessHighscores.updateHighscoresStacker(this.vuePage.score, prompt("Enter a name:"));
+				this.reset();
+			}
 		}
 
 		getLastBlock() {

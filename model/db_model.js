@@ -16,7 +16,9 @@ exports.init = function () {
         db.run(`CREATE TABLE IF NOT EXISTS high_scores(
             user_id     VARCHAR(20) PRIMARY KEY,
             minesweeper INTEGER     DEFAULT 0,
-            snake       INTEGER     DEFAULT 0)`,
+            snake       INTEGER     DEFAULT 0,
+			word_search	INTEGER		DEFAULT 0,
+			stacker		INTEGER		DEFAULT 0)`,
             err => {
                 if (err) {
                     console.error("Failed to create table high_scores: ", err);
