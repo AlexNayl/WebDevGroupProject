@@ -117,54 +117,54 @@ const SBMCW = ['PINE', 'MAPLE', 'BIRCH', 'OAK', 'GINKO', 'CHERRY', 'SEQUOIA', 'E
 const SBMDW = ['DEADPOOL', 'SUPERMAN', 'BATMAN', 'SPIDERMAN', 'IRONMAN', 'ANTMAN', 'DRSTRANGE', 'FLASH', 'WOLVERINE', 'HULK'];
 const SBMEW = ['VENENO', 'HURACAN', 'JESKO', 'SPEEDTAIL', 'SENNA', 'CHIRON', 'DIVO', 'ENZO', 'STRADALE', 'BATTISTA', 'CHARGER', 'CHALLENGER'];
 
-const SCMAW = ['STARSHIP', 'NEWGLENN', 'FALCON', 'ELECTRON', 'ANTARES', 'NEWSHEPARD', 'ARES', 'MINOTAUR', 'DELTA', 'ATLAS', 'ATHENA', 
+const SCMAW = ['STARSHIP', 'NEWGLENN', 'FALCON', 'ELECTRON', 'ANTARES', 'NEWSHEPARD', 'ARES', 'MINOTAUR', 'DELTA', 'ATLAS', 'ATHENA',
                         'PEGASUS', 'TITAN', 'SATURN', 'ENTERPRISE', 'COLUMBIA', 'CHALLENGER', 'DISCOVERY', 'ATLANTIS', 'ENDEAVOUR'];
-                        
-const SCMBW = ['ROSE', 'DAISY', 'LILAC', 'LILY', 'IRIS', 'JASMINE', 'POPPY', 'TULIP', 'LAVENDER', 
+
+const SCMBW = ['ROSE', 'DAISY', 'LILAC', 'LILY', 'IRIS', 'JASMINE', 'POPPY', 'TULIP', 'LAVENDER',
                         'PEONY', 'BUTTERCUP', 'PRIMROSE', 'ORCHID', 'SUNFLOWER'];
-                        
-const SCMCW = ['COFFEE', 'TEA', 'BOBA', 'WATER', 'JUICE', 'WINE', 'CHAMPAGNE', 'VODKA', 'WHISKEY', 
+
+const SCMCW = ['COFFEE', 'TEA', 'BOBA', 'WATER', 'JUICE', 'WINE', 'CHAMPAGNE', 'VODKA', 'WHISKEY',
                         'RUM', 'SMOOTHIE', 'SODA', 'BEER', 'LEMONADE', 'MILK'];
-                        
-const SCMDW = ['UKRAINE', 'TAIWAN', 'SOUTHKOREA', 'INDIA', 'FINLAND', 'SWEDEN', 'DENMARK', 'NORWAY', 'JAPAN', 
+
+const SCMDW = ['UKRAINE', 'TAIWAN', 'SOUTHKOREA', 'INDIA', 'FINLAND', 'SWEDEN', 'DENMARK', 'NORWAY', 'JAPAN',
                         'HONGKONG', 'FRANCE', 'ITALY', 'SPAIN', 'GERMANY', 'POLAND', 'CANADA', 'MEXICO'];
-                        
-const SCMEW = ['GALILEO', 'NEWTON', 'HUBBLE', 'ARECIBO', 'WEBB', 'CANADARM', 'ZARYA', 'POISK', 'RASSVET', 'BEAM', 'HARMONY', 
+
+const SCMEW = ['GALILEO', 'NEWTON', 'HUBBLE', 'ARECIBO', 'WEBB', 'CANADARM', 'ZARYA', 'POISK', 'RASSVET', 'BEAM', 'HARMONY',
                         'UNITY', 'DESTINY', 'TRANQUILITY', 'NAUKA', 'NICER', 'DEXTRE', 'BISHOP', 'KERBAL', 'PRICHAL'];
-                        
-                        
-const SDMAW = ['SOCCER', 'HOCKEY', 'BASKETBALL', 'BASEBALL', 'FOOTBALL', 'RUGBY', 'CRICKET', 'BADMINTON', 'TENNIS', 'SKIING', 
+
+
+const SDMAW = ['SOCCER', 'HOCKEY', 'BASKETBALL', 'BASEBALL', 'FOOTBALL', 'RUGBY', 'CRICKET', 'BADMINTON', 'TENNIS', 'SKIING',
                     'CURLING', 'FENCING', 'WEIGHTLIFTING', 'GOFLING', 'VOLLEYBALL', 'SAILING', 'ROWING', 'BOBSLEIGH'];
-                    
-const SDMBW = ['OILERS', 'NORDIQUES', 'WHALERS', 'PENGUINS', 'KINGS', 'JETS', 'FLAMES', 'HURRICANES', 'PANTHERS', 'KRAKEN', 'PREDATORS', 
+
+const SDMBW = ['OILERS', 'NORDIQUES', 'WHALERS', 'PENGUINS', 'KINGS', 'JETS', 'FLAMES', 'HURRICANES', 'PANTHERS', 'KRAKEN', 'PREDATORS',
                     'AVALANCHE', 'WILD', 'MAPLELEAFS', 'BLACKHAWKS', 'BRUINS', 'CANADIENS', 'SABRES', 'CANUCKS', 'CAPITALS'];
-                    
-const SDMCW = ['APPLE', 'GOOGLE', 'SAMSUNG', 'TESLA', 'FORD', 'DISNEY', 'HASBRO', 'SONY', 'MICROSOFT', 'HILTON', 'MONDELEZ', 'INTEL', 
+
+const SDMCW = ['APPLE', 'GOOGLE', 'SAMSUNG', 'TESLA', 'FORD', 'DISNEY', 'HASBRO', 'SONY', 'MICROSOFT', 'HILTON', 'MONDELEZ', 'INTEL',
                     'NVIDIA', 'BOEING', 'TOYOTA', 'MATTEL', 'NIKE', 'AMAZON', 'HUAWEI', 'VOLKSWAGEN', 'EXXONMOBIL'];
-                    
-const SDMDW = ['HAIDA', 'BISMARCK', 'YAMATO', 'HOOD', 'ROMA', 'IOWA', 'SCHARNHORST', 'NIMITZ', 'PRINZEUGEN', 
+
+const SDMDW = ['HAIDA', 'BISMARCK', 'YAMATO', 'HOOD', 'ROMA', 'IOWA', 'SCHARNHORST', 'NIMITZ', 'PRINZEUGEN',
                     'MIDWAY', 'FUBUKI', 'GEARING', 'HALLAND', 'ADMIRALHIPPER', 'REPUBLIQUE', 'VANGUARD'];
-                    
-const SDMEW = ['WARTHOG', 'ARROW', 'CANUCK', 'LIGHTNING', 'RAPTOR', 'HORNET', 'FALCON', 'TYPHOON', 'BLACKBIRD', 'HARRIER', 
+
+const SDMEW = ['WARTHOG', 'ARROW', 'CANUCK', 'LIGHTNING', 'RAPTOR', 'HORNET', 'FALCON', 'TYPHOON', 'BLACKBIRD', 'HARRIER',
                         'RAFALE', 'EAGLE', 'HERCULES', 'MUSTANG', 'SPITFIRE', 'CORSAIR', 'OSPREY', 'SPIRIT', 'PREDATOR'];
 
 
 const SEMAW = ['NEEDFORSPEED', 'TOMCLANCY', 'TETRIS', 'FINALFANTASY', 'SUPERMARIOBROS', 'GRANDTHEFTAUTO', 'STARFOX', 'MINECRAFT',
                     'ZELDA', 'SPACEINVADERS', 'DESTINY', 'POKEMON', 'PACMAN', 'CENTIPEDE', 'CALLOFDUTY', 'FROGGER', 'ARK', 'DOTA'];
-                    
-const SEMBW = ['THORN', 'OSA', 'ARUNI', 'IANA', 'WARDEN', 'NOMAD', 'KAID', 'LION', 'FINKA', 'DOKKAEBI', 'YING', 'LESION', 
+
+const SEMBW = ['THORN', 'OSA', 'ARUNI', 'IANA', 'WARDEN', 'NOMAD', 'KAID', 'LION', 'FINKA', 'DOKKAEBI', 'YING', 'LESION',
                     'JACKAL', 'BUCK', 'FROST', 'MUTE', 'SMOKE', 'ASH', 'CASTLE', 'MONTAGNE', 'FUZE', 'KAPKAN', 'AZAMI'];
-                    
+
 const SEMCW = ['RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'PURPLE', 'BROWN', 'BLACK', 'CYAN', 'MAGENTA',
                     'CRIMSON', 'LIME', 'INDIGO', 'MAROON', 'AMBER', 'VERMILLION', 'SCARLET', 'MUSTARD'];
-                    
-const SEKDW = ['STEGOSAURUS', 'PARASAUR', 'RAPTOR', 'MEGALODON', 'CARNOTAURUS', 'ALLOSAURUS', 'BARYONYX', 'BRONTOSAURUS', 'SPINOSAURUS', 
+
+const SEKDW = ['STEGOSAURUS', 'PARASAUR', 'RAPTOR', 'MEGALODON', 'CARNOTAURUS', 'ALLOSAURUS', 'BARYONYX', 'BRONTOSAURUS', 'SPINOSAURUS',
                     'ARGENTAVIS', 'TRICERATOPS', 'TYRANNOSAURUSREX', 'PTERANODON', 'ANKYLOSAURUS', 'PLESIOSAUR', 'TROODON', 'DIMORPHODON'];
-                    
-const SEMEW = ['LASAGNA', 'QUINOA', 'CHICKEN', 'LIME', 'PUTINE', 'BURRITO', 'FAJITAS', 'CROISSANT', 'CORN', 
+
+const SEMEW = ['LASAGNA', 'QUINOA', 'CHICKEN', 'LIME', 'PUTINE', 'BURRITO', 'FAJITAS', 'CROISSANT', 'CORN',
                     'SHRIMP', 'APFELSTRUDEL', 'MACARONS', 'SPANAKOPITA', 'YAKITORI', 'ONIGIRI'];
-                    
-*/          
+
+*/
 
 const SAMEW = ['GRIFFIN', 'WYVERN', 'PEGASUS', 'PHOENIX', 'TITAN'];
 
@@ -196,7 +196,7 @@ export class WordSearch{
 
             s.draw = () => {
                 s.clear();
-        
+
                 this.displayBackground(); // works
 
                 this.displayMatrix();
@@ -211,21 +211,21 @@ export class WordSearch{
                 s.background(255, 146, 37);
             }
 
-            
+
             this.displayMatrix = () => {
                 s.push();
-                
+
                 s.textAlign(s.CENTER, s.CENTER);
                 for (let row = 0; row < this.activeMatrix.length; row++) {
                     let activeRow = this.activeMatrix[row];
                     for (let col = 0; col < activeRow.length; col++) {
                         let character = activeRow[col];
-                        
+
                         let x = matX + col * cellDims;
                         let y = matY + row * cellDims;
-                        
+
                         s.stroke(0);
-                        
+
                         // set colour of block:
                         // if characters are highlighted, highlight colour is Fuchsia
                         // if is a word, colour set to green
@@ -233,43 +233,43 @@ export class WordSearch{
                         let colour = this.isSelected(row, col) ? "Fuchsia" : (this.foundCell(row, col) ? "Lime" : "White");
                         s.fill(colour);
                         s.rect(x, y, cellDims, cellDims);
-                        
+
                         s.noStroke();
                         s.fill(0);
                         s.text(character, x + cellDims / 2, y + cellDims / 2);
-                    
+
                     }
                 }
-                
+
                 s.pop();
             }
 
-            this.displaySelection = () => { 
+            this.displaySelection = () => {
                 let txt = this.selectedWord();
-                
+
                 // if there is no selected word, return
                 if (!txt) { return; }
-                
+
                 s.push();
                 s.noStroke();
                 s.fill(0);
                 s.textSize(20);
                 s.text(txt, matX, matY + (this.rows + 1) * cellDims);
-                s.pop(); 
+                s.pop();
             }
 
-            this.displayWords = () => { 
+            this.displayWords = () => {
                 s.push();
                 s.noStroke();
-                
+
                 for (let index = 0; index < this.activeWords.length; index++) {
-                    
+
                     // makes a word in wordbank grey if found, else display as black
                     s.fill(this.foundWord(this.activeWords[index]) ? "Gray" : "Black");
                     s.text(this.activeWords[index], 30, matY + 20 + index * 50);
-                    
+
                 }
-                
+
                 s.pop();
             }
 
@@ -278,7 +278,7 @@ export class WordSearch{
                 console.log("mouse pressed")
                 if (!this.lastCell) { this.lastCell = this.findCell(s.mouseX, s.mouseY); }
                 let nextCell = this.findCell(this.mouseX, this.mouseY);
-                
+
                 if (nextCell) { this.currentCell = nextCell; }
                 this.currentSelection = this.findSelection();
             }*/
@@ -286,16 +286,16 @@ export class WordSearch{
                 // if mouse isn't pressed
                 if (!s.mouseIsPressed) {
                     this.validateSelection();
-                    
+
                     this.lastCell = null;
                     this.currentCell = null;
                     this.currentSelection = null;
                     return;
                 }
-                
+
                 if (!this.lastCell) { this.lastCell = this.findCell(s.mouseX, s.mouseY); }
 				let nextCell = this.findCell(s.mouseX, s.mouseY);
-                
+
                 if (nextCell) { this.currentCell = nextCell; }
                 this.currentSelection = this.findSelection();
             }
@@ -316,89 +316,89 @@ export class WordSearch{
     enter() {
         this.wordsFound = [];
     }
-     
+
     validateSelection() {
-        
+
         let word = this.selectedWord();
-        
+
         // exits if no word
         if (!word) { return; }
-        
-        // exits if 
+
+        // exits if
         if (this.foundWord(word)) { return; }
-        
+
         // records word as found if word was found
         if (this.activeWords.includes(word)) { this.addFound(word, this.currentSelection); }
-        
+
         if (this.wordsFound.length === this.activeWords.length) {
             // stop timer
             // record score
             // something else
             this.over = true;
         }
-     
+
     }
 
     findCell(x, y) {
         let colIndex = Math.floor((x - matX) / cellDims);
         let rowIndex = Math.floor((y - matY) / cellDims);
-        
+
         // if out of bounds of grid, return null
         if (colIndex < 0 || colIndex >= this.cols || rowIndex < 0 || rowIndex >= this.rows) { return null; }
-        
+
         // if there are valid indices, return the row and column
         return { "row": rowIndex, "col": colIndex};
         //return {"row": this.row, "col": this.col}
     }
-     
+
     // return the selected word
     selectedWord() {
-        
+
         // if there is no current selection, return blank
         if (!this.currentSelection) { return ""; }
-        
+
         let txt= "";
-        
+
         for (let value of this.currentSelection) { txt += value.character; }
-        
+
         return txt;
-        
+
     }
-     
-    /* 
+
+    /*
      * Function used to check if currently selected characters
      * are horizontal, vertical, or diagonal, and will return
      * array of currently highlighted characters
      */
     findSelection() {
-     
+
         // if there is one or no cells selected, will return null
         if (!this.lastCell || !this.currentCell) { return null; }
-        
+
         // execute functions in if else order
         // if hSelection is null, run vSelection, if not null, end;
         return this.horizontalSelection() || this.verticalSelection() || this.diagonalSelection();
-     
+
     }
-     
-    /* 
-     * Checks to see if selected cells are in horizontal line 
+
+    /*
+     * Checks to see if selected cells are in horizontal line
      * returns array of currently selected horizontal characters
      */
     horizontalSelection() {
-     
+
         // if either last cell or current cell are null, return null
         if (!this.lastCell || !this.currentCell) { return null; }
-        
+
         // if selection isn't horizontal, exit and go to next checker function
         if (this.lastCell.row != this.currentCell.row) { return null; }
-        
+
         let characterArray = [];
-        
+
         let delta = this.lastCell.col <= this.currentCell.col ? 1 : -1;
-        
+
         for (let col = this.lastCell.col; col != this.currentCell.col + delta; col += delta) {
-            
+
             let row = this.lastCell.row;
             if (this.activeMatrix[row] == null){
                 console.log("error found", row, col);
@@ -406,109 +406,110 @@ export class WordSearch{
             }
             console.log("horizontal selection");
             let character = this.activeMatrix[row][col];
-            
+
             characterArray.push( { "row": row, "col": col, "character": character } );
-            
+
         }
-        
+
         return characterArray;
-     
+
     }
-     
+
     /*
      * Checks to see if selected cells are in vertical line
      */
     verticalSelection() {
-     
+
         // if either last cell or current cell are null, return null
         if (!this.lastCell || !this.currentCell) { return null; }
-        
-        // if the selection isn't vertical, 
+
+        // if the selection isn't vertical,
         // return null and pass to diagonal checker function
         if (this.lastCell.col != this.currentCell.col) { return null; }
-        
+
         let characterArray = [];
-        
+
         let delta = this.lastCell.row <= this.currentCell.row ? 1 : -1;
-        
+
         for (let row = this.lastCell.row; row != this.currentCell.row + delta; row += delta) {
-        
+
             let col = this.lastCell.col;
             let character = this.activeMatrix[row][col];
-            
+
             characterArray.push( { "row": row, "col": col, "character": character } );
-        
+
         }
-        
+
         return characterArray;
-     
+
     }
-     
+
     /*
      * Checks to see if the user is highlighting the characters
      * in a diagonal line. If they aren't, function will stop
      * user from highlighting characters in a random order
      */
     diagonalSelection() {
-     
+
         if (!this.lastCell || !this.currentCell) { return null; }
-        
+
         // if successive selected cells are not diagonal, exits returning null
         if (Math.abs(this.currentCell.row - this.lastCell.row) != Math.abs(this.currentCell.col - this.lastCell.col)) { return null; }
-        
+
         let characterArray = [];
-        
+
         let dHorizontal = this.lastCell.col <= this.currentCell.col ? 1 : -1;
         let dVertical = this.lastCell.row <= this.currentCell.row ? 1 : -1;
-        
+
         let row = this.lastCell.row;
         let col = this.lastCell.col;
-    
+
 
 
         while (row != this.currentCell.row + dVertical && col != this.currentCell.col + dHorizontal) {
-        
+
             let character = this.activeMatrix[row][col];
-            characterArray.push ( { "row": row, "col": col, "character": character } );
-            row += dVertical;
-            col += dHorizontal;
+			characterArray.push({ "row": row, "col": col, "character": character });
+			row += dVertical;
+			col += dHorizontal;
+
         }
         return characterArray;
      
     }
-     
+
     isSelected(row, col) {
-     
+
         if (!this.currentSelection) { return false; }
-        
+
         for (let value of this.currentSelection) {
-            
+
             if (value.row === row && value.col === col) { return true; }
-        
+
         }
-        
+
         return false;
-     
+
     }
-     
+
     addFound(word, cells) { this.wordsFound.push( { "word": word, "cells": cells } ); }
-    
+
     foundWord(word) {
         for (let value of this.wordsFound) {
             if (value.word === word) { return true; }
         }
-        
+
         return false;
     }
-     
+
     foundCell(row, col) {
         for (let value of this.wordsFound) {
             for (let valueCell of value.cells) {
                 if (valueCell.row === row && valueCell.col === col) { return true; }
             }
         }
-        
+
         return false;
-        
-    }  
+
+    }
 }
