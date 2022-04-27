@@ -17,6 +17,7 @@ start cmd /c node node_server.js ^& pause && start cmd /c npm run serve
 ```
 in the WebDevGroupProject folder
 
+
 ## How To Install Dependencies for Project
 ```
 Navigate to WebDevGroupProject and run command:
