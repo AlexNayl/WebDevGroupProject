@@ -8,25 +8,25 @@
 | Alexander Naylor   | [Username](https://github.com/AlexNayl)|
 | Bence     Takacs   | [Username](https://github.com/BenceTakacs15)|
 
-## Project setup
+
+
+
+## How To Install Dependencies for Project
 ```
-npm install
+Navigate to WebDevGroupProject and run command:
+    npm install
 ```
 
-### Compiles and hot-reloads for development
+## Dependencies used
 ```
-npm run serve
+@popperjs/core Version 2.11.5
+bootstrap Version 5.1.3
+bootstrap-vue-3 Version 0.1.11
+core-js Version 3.8.3
+d3 Version 7.4.4
+jquery Version 3.6.0
+p5 Version 1.4.1
+sqlite3 Version 5.0.3
+vue Version 3.2.32
+vue-router Version 4.0.3
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
