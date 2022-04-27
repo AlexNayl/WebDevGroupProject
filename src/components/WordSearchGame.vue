@@ -1,14 +1,10 @@
 <template>
+	<p>
+		Find the hidden words on the board. They are placed horizontally, vertically, or diagonally, possibly reversed.
+	</p>
 	<p>Time: {{time}}</p>
-	<!--<p id="board-size">Board Size: {{boardSize}}</p>
-	
 	<div>
-		
-		<input type="range" min="8" max="16" value="8" step="8" class="slider" id="board-size-slider">
-	</div>
-	-->
-	<div>
-		<button @click="reset" id="resetButton">Reset</button>
+		<button @click="reset" id="resetButton">New Game</button>
 	</div>
 
 	<div id="game"></div>
@@ -40,10 +36,4 @@
 			});
 		}
 	}
-	/*import $ from 'jquery';
-	import accessHighScores from '@/../public/scripts/access_highscores.js';
-	
-	class Wordsearch{
-		
-	}*/
 </script>
