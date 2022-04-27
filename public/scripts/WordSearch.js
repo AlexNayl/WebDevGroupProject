@@ -110,7 +110,6 @@ const SAMAW = ['SCOPE', 'VAR', 'HTML', 'COBOL', 'UTIL'];
 const SAMBW = ['CODE', 'CSS', 'JAVA', 'SWIFT', 'STACK'];
 const SAMCW = ['CLANCY', 'DAVINCI', 'HAMILTON', 'TESLA', 'TURING'];
 const SAMDW = ['YUKIHIRO', 'SATOSHI', 'GOSLING', 'BJARNE'];
-const SAMEW = ['GRIFFIN', 'WYVERN', 'PEGASUS', 'PHOENIX', 'TITAN'];
 
 const SBMAW = ['DOG', 'CAT', 'ORCA', 'FOX', 'SQUID', 'WOLF', 'FALCON', 'PENGIUN'];
 const SBMBW = ['ACTION', 'HORROR', 'COMEDY', 'DRAMA', 'THRILLER', 'SCIFI', 'ROMANCE', 'CRIME'];
@@ -161,11 +160,13 @@ const SEMCW = ['RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'PURPLE', 'BROWN', 'B
                     
 const SEKDW = ['STEGOSAURUS', 'PARASAUR', 'RAPTOR', 'MEGALODON', 'CARNOTAURUS', 'ALLOSAURUS', 'BARYONYX', 'BRONTOSAURUS', 'SPINOSAURUS', 
                     'ARGENTAVIS', 'TRICERATOPS', 'TYRANNOSAURUSREX', 'PTERANODON', 'ANKYLOSAURUS', 'PLESIOSAUR', 'TROODON', 'DIMORPHODON'];
-*/          
-
-
+                    
 const SEMEW = ['LASAGNA', 'QUINOA', 'CHICKEN', 'LIME', 'PUTINE', 'BURRITO', 'FAJITAS', 'CROISSANT', 'CORN', 
                     'SHRIMP', 'APFELSTRUDEL', 'MACARONS', 'SPANAKOPITA', 'YAKITORI', 'ONIGIRI'];
+                    
+*/          
+
+const SAMEW = ['GRIFFIN', 'WYVERN', 'PEGASUS', 'PHOENIX', 'TITAN'];
 
 
 const cellDims = 50;
