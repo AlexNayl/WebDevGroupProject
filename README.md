@@ -17,6 +17,7 @@ Run command:
 start cmd /c node node_server.js ^& pause && start cmd /c npm run serve
 ```
 in the WebDevGroupProject folder
+Then access the application by entering localhost:8080 in your browser URL
 
 ## Locations of Important Files
 
