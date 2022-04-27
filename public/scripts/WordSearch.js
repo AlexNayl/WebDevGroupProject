@@ -463,13 +463,17 @@ export class WordSearch{
         
         let row = this.lastCell.row;
         let col = this.lastCell.col;
-        
+    
+
+
         while (row != this.currentCell.row + dVertical && col != this.currentCell.col + dHorizontal) {
         
             let character = this.activeMatrix[row][col];
             characterArray.push ( { "row": row, "col": col, "character": character } );
-        
+            row += dVertical;
+            col += dHorizontal;
         }
+        return characterArray;
      
     }
      
