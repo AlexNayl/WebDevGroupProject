@@ -54,3 +54,8 @@
 .bombsnear6{
     background-image: url("../images/bombs_near_6_64x64.png");
 }
+
+table{
+        margin-left: auto;
+        margin-right: auto;
+}

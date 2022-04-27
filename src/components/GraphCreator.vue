@@ -121,13 +121,3 @@
         },
     }
 </script>
-
-<style>
-    text{
-        font-family: Arial;
-    }
-
-    label{
-        padding-right: 10px;
-    }
-</style>
