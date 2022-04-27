@@ -14,7 +14,7 @@
 ## How To Install Dependencies for Project
 ```
 Navigate to WebDevGroupProject and run command:
-    npm install
+npm install
 ```
 
 ## Dependencies used
