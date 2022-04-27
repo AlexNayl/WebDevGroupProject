@@ -3,10 +3,10 @@
  *  S = Size
  *  A/B/C/D/E = Indicates size type (8x8 = A, 10x10 = B, 12x12 = C, etc)
  *  M = Matrix No
- *  W = indicates word array for matrix / list of words in the word search map variant
- *  A/B/C/D/E = Matrix type variant (8x8 variant 1 = A, 8x8 variant 2 = B, etc)
- *  ex: SAMA = Size A Matrix A => Size = 8x8, Matrix = variant A
- *  ex: SAMAW = list of words in size A variant A
+ *  W = indicates word array for matrix / list of words in the word search map letiant
+ *  A/B/C/D/E = Matrix type letiant (8x8 letiant 1 = A, 8x8 letiant 2 = B, etc)
+ *  ex: SAMA = Size A Matrix A => Size = 8x8, Matrix = letiant A
+ *  ex: SAMAW = list of words in size A letiant A
  */
 
 import p5 from "p5";
@@ -106,7 +106,7 @@ const SEMB = [
 ];
 */
 /*
-const SAMAW = ['SCOPE', 'VAR', 'HTML', 'COBOL', 'UTIL'];
+const SAMAW = ['SCOPE', 'let', 'HTML', 'COBOL', 'UTIL'];
 const SAMBW = ['CODE', 'CSS', 'JAVA', 'SWIFT', 'STACK'];
 const SAMCW = ['CLANCY', 'DAVINCI', 'HAMILTON', 'TESLA', 'TURING'];
 const SAMDW = ['YUKIHIRO', 'SATOSHI', 'GOSLING', 'BJARNE'];
@@ -216,15 +216,13 @@ export class WordSearch{
                 s.push();
                 
                 s.textAlign(s.CENTER, s.CENTER);
-                
-                for (var row = 0; row < this.activeMatrix.length; row++) {
-                    var activeRow = this.activeMatrix[row];
-                    
-                    for (var col = 0; col < activeRow; col++) {
-                        var character = activeRow[col];
+                for (let row = 0; row < this.activeMatrix.length; row++) {
+                    let activeRow = this.activeMatrix[row];
+                    for (let col = 0; col < activeRow.length; col++) {
+                        let character = activeRow[col];
                         
-                        var x = matX + col * cellDims;
-                        var y = matY + row * cellDims;
+                        let x = matX + col * cellDims;
+                        let y = matY + row * cellDims;
                         
                         s.stroke(0);
                         
@@ -232,7 +230,7 @@ export class WordSearch{
                         // if characters are highlighted, highlight colour is Fuchsia
                         // if is a word, colour set to green
                         // if not a word, turns back to white
-                        var colour = this.isSelected(row, col) ? "Fuchsia" : (this.foundCell(row, col) ? "Lime" : "White");
+                        let colour = this.isSelected(row, col) ? "Fuchsia" : (this.foundCell(row, col) ? "Lime" : "White");
                         s.fill(colour);
                         s.rect(x, y, cellDims, cellDims);
                         
@@ -247,7 +245,7 @@ export class WordSearch{
             }
 
             this.displaySelection = () => { 
-                var txt = this.selectedWord();
+                let txt = this.selectedWord();
                 
                 // if there is no selected word, return
                 if (!txt) { return; }
@@ -264,7 +262,7 @@ export class WordSearch{
                 s.push();
                 s.noStroke();
                 
-                for (var index = 0; index < this.activeWords.length; index++) {
+                for (let index = 0; index < this.activeWords.length; index++) {
                     
                     // makes a word in wordbank grey if found, else display as black
                     s.fill(this.foundWord(this.activeWords[index]) ? "Gray" : "Black");
@@ -275,6 +273,15 @@ export class WordSearch{
                 s.pop();
             }
 
+
+            /*s.mousePressed = () => {
+                console.log("mouse pressed")
+                if (!this.lastCell) { this.lastCell = this.findCell(s.mouseX, s.mouseY); }
+                let nextCell = this.findCell(this.mouseX, this.mouseY);
+                
+                if (nextCell) { this.currentCell = nextCell; }
+                this.currentSelection = this.findSelection();
+            }*/
             this.checkMouse = () => {
                 // if mouse isn't pressed
                 if (!s.mouseIsPressed) {
@@ -287,7 +294,7 @@ export class WordSearch{
                 }
                 
                 if (!this.lastCell) { this.lastCell = this.findCell(s.mouseX, s.mouseY); }
-                var nextCell = this.findCell(this.mouseX, this.mouseY);
+                let nextCell = this.findCell(this.mouseX, this.mouseY);
                 
                 if (nextCell) { this.currentCell = nextCell; }
                 this.currentSelection = this.findSelection();
@@ -312,7 +319,7 @@ export class WordSearch{
      
     validateSelection() {
         
-        var word = this.selectedWord();
+        let word = this.selectedWord();
         
         // exits if no word
         if (!word) { return; }
@@ -333,14 +340,15 @@ export class WordSearch{
     }
 
     findCell(x, y) {
-        var colIndex = Math.floor((x - matX) / cellDims);
-        var rowIndex = Math.floor((y - matY) / cellDims);
+        let colIndex = Math.floor((x - matX) / cellDims);
+        let rowIndex = Math.floor((y - matY) / cellDims);
         
         // if out of bounds of grid, return null
         if (colIndex < 0 || colIndex >= this.cols || rowIndex < 0 || rowIndex >= this.rows) { return null; }
         
         // if there are valid indices, return the row and column
-        return { "row": this.row, "col": this.col};
+        return { "row": rowIndex, "col": colIndex};
+        //return {"row": this.row, "col": this.col}
     }
      
     // return the selected word
@@ -349,9 +357,9 @@ export class WordSearch{
         // if there is no current selection, return blank
         if (!this.currentSelection) { return ""; }
         
-        var txt= "";
+        let txt= "";
         
-        for (var value of this.currentSelection) { txt += value.character; }
+        for (let value of this.currentSelection) { txt += value.character; }
         
         return txt;
         
@@ -385,16 +393,21 @@ export class WordSearch{
         // if selection isn't horizontal, exit and go to next checker function
         if (this.lastCell.row != this.currentCell.row) { return null; }
         
-        var characterArray = [];
+        let characterArray = [];
         
-        var delta = this.lastCell.col <= this.currentCell.col ? 1 : -1;
+        let delta = this.lastCell.col <= this.currentCell.col ? 1 : -1;
         
-        for (var col = this.lastCell.col; col != this.currentCell.col + delta; col += delta) {
+        for (let col = this.lastCell.col; col != this.currentCell.col + delta; col += delta) {
             
-            var row = this.lastCell.row;
-            var character = this.activeMatrix[row][col];
+            let row = this.lastCell.row;
+            if (this.activeMatrix[row] == null){
+                console.log("error found", row, col);
+                console.log(this.lastCell);
+            }
+            console.log("horizontal selection");
+            let character = this.activeMatrix[row][col];
             
-            characterArray.push( { row: row, col: col, character: character } );
+            characterArray.push( { "row": row, "col": col, "character": character } );
             
         }
         
@@ -414,16 +427,16 @@ export class WordSearch{
         // return null and pass to diagonal checker function
         if (this.lastCell.col != this.currentCell.col) { return null; }
         
-        var characterArray = [];
+        let characterArray = [];
         
-        var delta = this.lastCell.row <= this.currentCell.row ? 1 : -1;
+        let delta = this.lastCell.row <= this.currentCell.row ? 1 : -1;
         
-        for (var row = this.lastCell.row; row != this.currentCell.row + delta; row += delta) {
+        for (let row = this.lastCell.row; row != this.currentCell.row + delta; row += delta) {
         
-            var col = this.lastCell.col;
-            var character = this.activeMatrix[row][col];
+            let col = this.lastCell.col;
+            let character = this.activeMatrix[row][col];
             
-            characterArray.push( { row: row, col: col, character: character } );
+            characterArray.push( { "row": row, "col": col, "character": character } );
         
         }
         
@@ -443,17 +456,17 @@ export class WordSearch{
         // if successive selected cells are not diagonal, exits returning null
         if (Math.abs(this.currentCell.row - this.lastCell.row) != Math.abs(this.currentCell.col - this.lastCell.col)) { return null; }
         
-        var characterArray = [];
+        let characterArray = [];
         
-        var dHorizontal = this.lastCell.col <= this.currentCell.col ? 1 : -1;
-        var dVertical = this.lastCell.row <= this.currentCell.row ? 1 : -1;
+        let dHorizontal = this.lastCell.col <= this.currentCell.col ? 1 : -1;
+        let dVertical = this.lastCell.row <= this.currentCell.row ? 1 : -1;
         
-        var row = this.lastCell.row;
-        var col = this.lastCell.col;
+        let row = this.lastCell.row;
+        let col = this.lastCell.col;
         
         while (row != this.currentCell.row + dVertical && col != this.currentCell.col + dHorizontal) {
         
-            var character = this.activeMatrix[row][col];
+            let character = this.activeMatrix[row][col];
             characterArray.push ( { "row": row, "col": col, "character": character } );
         
         }
@@ -464,7 +477,7 @@ export class WordSearch{
      
         if (!this.currentSelection) { return false; }
         
-        for (var value of this.currentSelection) {
+        for (let value of this.currentSelection) {
             
             if (value.row === row && value.col === col) { return true; }
         
@@ -474,10 +487,10 @@ export class WordSearch{
      
     }
      
-    addFound(word, cells) { this.wordsFound.push( { word: word, cells: cells } ); }
+    addFound(word, cells) { this.wordsFound.push( { "word": word, "cells": cells } ); }
     
     foundWord(word) {
-        for (var value of this.wordsFound) {
+        for (let value of this.wordsFound) {
             if (value.word === word) { return true; }
         }
         
@@ -485,8 +498,8 @@ export class WordSearch{
     }
      
     foundCell(row, col) {
-        for (var value of this.wordsFound) {
-            for (var valueCell of value.cells) {
+        for (let value of this.wordsFound) {
+            for (let valueCell of value.cells) {
                 if (valueCell.row === row && valueCell.col === col) { return true; }
             }
         }
