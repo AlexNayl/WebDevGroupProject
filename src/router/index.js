@@ -23,7 +23,7 @@ const routes = [
   {
      path: '/WordSearch',
      name: 'WordSearch',
-     component: () => import('../views/WordSearch.vue')
+     component: () => import('../views/WordSearchView.vue')
   },
   {
     path: '/Stacker',
