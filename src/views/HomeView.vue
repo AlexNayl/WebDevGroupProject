@@ -31,7 +31,7 @@
 					<div class="card-body">
 						<img class="card-img-top" src="@/../public/images/wordsearch.png" alt="Word Search">
 						<h5 class="card-title">Word Search</h5>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+						<p class="card-text">Search for a set of words hidden in a matrix of random characters. Words can be backwards, diagonal, and they can cross each other.</p>
 						<a href="/WordSearch" class="btn btn-primary">Play</a>
 					</div>
 				</div>
