@@ -1,27 +1,48 @@
 import $ from 'jquery';
 import accessHighscores from '@/../public/scripts/access_highscores.js';
 /*
-	Highscore handling (Prompt the user for name and add it to a Datebase later)
-	Notes:
-	If there is infinite recursion encountered tell Samuel with a screenshot of the game I think I fixed it not sure
+ * Name: minesweeperHighScore
+ * Description: Calculates a highscore for a minesweepr game
+ * Return: A score
+*/
+function minesweeperHighScore(duration, boardSize, numBombs){
+    const MAX_SCORE_DURATION = 1000; // Max duration after which score is not affected
+    const SCORE_DURATION_COEFFICIENT = 1000; // How much the duration affects the score
+    return Math.ceil(numBombs / boardSize * Math.max(1, (MAX_SCORE_DURATION - duration) * SCORE_DURATION_COEFFICIENT));
+}
+
+/*
+ * Class Name: Minesweeper 
+ * Description: Runs a game of minesweeper 
 */
 export default class Minesweeper{
-	static MAX_BOMBS_3X3 = 6;
+	static MAX_BOMBS_3X3 = 6; // Limit on how many bombs can appear in a 3x3 grid area
+	/*
+     * Name: constructor
+     * Description: Creates a new Minesweeper instasnce
+     * Return: None
+    */
 	constructor(boardSize, numBombs, vuePage){
-		this.boardSize = boardSize;
-		this.numBombs = numBombs;
-		this.vuePage = vuePage;
-		this.setup();
+		this.boardSize = boardSize; // Size of the Minesweeper board
+		this.numBombs = numBombs; // Number of bombs present in the game
+		this.vuePage = vuePage; // Reference to the page. Used for accessing page variables
+		this.setup(); // Setup the game
 	}
 
+	/*
+     * Name: setup
+     * Description: Sets up a game of minesweeper
+     * Return: None
+    */
 	setup(){
-		this.bombLocations = [];
-		this.started = false;
-		this.startedTime = 0;
-		this.gameOver = false;
-		this.flagsPlaced = 0;
+		this.bombLocations = []; // Locations where bombs are placed
+		this.started = false; 
+		this.startedTime = 0; // 0 is a placeholder it will be number of seconds since EPOCH
+		this.gameOver = false; 
+		this.flagsPlaced = 0; 
 		this.vuePage.flagsPlaced = this.flagsPlaced;
-		// Setup Display Timer
+
+		// Timer that will be used for score and displayed to the user
 		setInterval(() => {
 			if (this.started && !this.gameOver){
 				this.vuePage.time = Math.round(new Date().getTime() / 1000) - this.startedTime;
@@ -30,19 +51,22 @@ export default class Minesweeper{
 
 		// Setup Board
 		let board = document.getElementById("gameBoard");
-		// if already exists
+		
+		// if the board is already present then delete it
 		if (board){
 			board.remove();
 		}
-		board = this.makeBoard();
-		//Events
+
+		this.makeBoard();
+
+		//Event Handlers
 
 		// Disable right click browser menu on game squares
 		$(".gamesquare").contextmenu(function(){
 			return false;
 		});
 
-		// neccessary
+		// Use a reference to the game instance for setting up event handling
 		let gameInstance = this;
 		// Set up left and right click events
 		$(".gamesquare").mousedown(function(event){
@@ -53,14 +77,23 @@ export default class Minesweeper{
 			}
 		});
 
-		this.addBombs();
+		this.addBombs(); // Add the bombs to the game 
+		// The game is now setup
 	}
 
+	/*
+     * Name: makeBoard
+     * Description: Makes a table representing the Minesweeper board
+     * Return: None
+    */
 	makeBoard(){
-		let gameDiv = document.getElementById("gameDiv");
-		let resetButton = document.getElementById("resetButton");
-		if (!gameDiv || !resetButton){ return; } // TODO: properly handle this
-		// Add reset button need null check for reset
+		let gameDiv = document.getElementById("gameDiv"); // Div that the game is stored in
+		let resetButton = document.getElementById("resetButton"); // Get the reset button
+
+		// If the game Div or Reset button are not found then cease making the board
+		if (!gameDiv || !resetButton){ return; }
+
+		// Create the table
 		let gameBoard = document.createElement("table");
 		gameBoard.setAttribute("id", "gameBoard");
 		gameDiv.appendChild(gameBoard);
@@ -74,26 +107,40 @@ export default class Minesweeper{
 				gameSquare.setAttribute("class", "gamesquare unknownsquare");
 			}
 		}
-		return gameBoard;
 	}
 
+	/*
+     * Name: reset
+     * Description: Starts a new game
+     * Return: None
+    */
 	reset(numBombs, boardSize){
 		this.numBombs = numBombs;
 		this.boardSize = boardSize;
 		this.setup();
 	}
 
+	/*
+     * Name: clickSquare
+     * Description: Handles the action of clicking on a square
+     * Return: None
+    */
 	clickSquare(square){
+
+		// If the game is not started then start the game
 		if (!this.started){
 			this.startedTime = Math.round(new Date().getTime() / 1000);
 			this.started = true;
 		}
+
+		// Square must be either of type 'unknownsquare' or in the circumstances of a game being over a flagsquare is also allowed
 		if (!(square.classList.contains("unknownsquare")) && !(this.gameOver && square.classList.contains("flagsquare"))){
 			return;
 		}
 
-
+		// Square once clicked is no longer unknown
 		square.classList.remove("unknownsquare");
+
 		// Incase user clicks on bomb (the !gameOver part is for revealing the entire board)
 		if (this.inArray(this.bombLocations, square.id)){
 			// If game is over then this is a flag square needs to be removed to allow bomb image
@@ -110,9 +157,12 @@ export default class Minesweeper{
 		let squareRow = this.getRow(square.id);
 		let squareCol = this.getCol(square.id);
 		let bombsNear = this.countBombsNear(squareRow, squareCol);
+		
+		// When no bombs near a square then nearby squares can be cleared
 		if (bombsNear == 0){
 			this.clearNearBy(squareRow, squareCol);
 		}
+
 		// Else add number of bombs
 		square.classList.add("bombsnear" + bombsNear.toString());
 		if (!this.gameOver){
@@ -120,20 +170,36 @@ export default class Minesweeper{
 		}
 	}
 
+
+	/*
+     * Name: clearNearBy
+     * Description: Clears an area around a specified square
+     * Return: None
+    */
 	clearNearBy(squareRow, squareCol){
+		// Search the 3x3 grid around a square and artificially click them
 		for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.boardSize); row++){
 			for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.boardSize); col++){
 				this.clickSquare(document.getElementById(row.toString() + "," + col.toString()));
 			}
 		}
 	}
+
+
+	/*
+     * Name: countBombsNear
+     * Description: Counts the bombs in a 3x3 grid aruound a square
+     * Return: The number of bombs nearby
+    */
 	countBombsNear(squareRow, squareCol){
 		let bombsNear = 0;
+
+		// Search the 3x3 grid
 		for (let row = Math.max(squareRow - 1, 0); row < Math.min(squareRow + 2, this.boardSize); row++){
 			for (let col = Math.max(squareCol - 1, 0); col < Math.min(squareCol + 2, this.boardSize); col++){
 				// Save searching useless spot
 				if (row == squareRow && col == squareCol){ continue; }
-				// if spot if a bomb
+				// checks all the bomb locations to see if the square is a bomb
 				if (this.inArray(this.bombLocations, row.toString() + "," + col.toString())){
 					bombsNear += 1;
 				}
@@ -142,10 +208,19 @@ export default class Minesweeper{
 		return bombsNear;
 	}
 
+
+	/*
+     * Name: rightClickSquare
+     * Description: Simulates a user right clicking a square
+     * Return: None
+    */
 	rightClickSquare(square){
+		// Squares cannot be right clicked after the game has ended so return
 		if (this.gameOver){
 			return;
 		}
+
+		// Check if the square is an unknown square or flag then flag or unflag it
 		if (this.inArray(square.classList, "unknownsquare")){
 			square.classList.add("flagsquare");
 			square.classList.remove("unknownsquare");
@@ -159,26 +234,44 @@ export default class Minesweeper{
 		}
 	}
 
+	/*
+     * Name: endGame
+     * Description: Ends the game
+     * Return: None
+    */
 	endGame(win=false){
 		this.gameOver = true;
+
+		// Simulate a click on each square to show the user the complete board
 		for (let i = 0; i < this.boardSize; i++){
 			for (let j = 0; j < this.boardSize; j++){
-				this.clickSquare(document.getElementById(i.toString() + "," + j.toString()), true);
+				this.clickSquare(document.getElementById(i.toString() + "," + j.toString()));
 			}
 		}
+
+		// End the timer loop
 		clearTimeout();
-		let duration = Math.round(new Date().getTime() / 1000) - this.startedTime;
-		this.vuePage.time = duration; // just incase
+
+		// Win or lose. Update the database if win
 		if (win){
-			accessHighscores.updateHighscoresMinesweeper(duration, this.boardSize, this.numBombs, prompt("Enter a name:")) // TODO: Add username parameter
+			// Calculate the results of the game and 
+			let duration = Math.round(new Date().getTime() / 1000) - this.startedTime;
+			this.vuePage.time = duration;
+			accessHighscores.updateHighscores(minesweeperHighScore(duration, this.boardSize, this.numBombs), prompt("Enter a name:"), "minesweeper")
 		}else{
 			alert("You lose! Press Reset to reset!");
 		}
-		console.log("Game Over! Win =", win, "Duration =", duration);
 	}
 
+	/*
+     * Name: addBombs
+     * Description: Adds the bombs to the game
+     * Return: None
+    */
 	addBombs(){
 		let possibleLocations = [];
+
+		// 
 		for (let i = 0; i < this.boardSize; i++){
 			for (let j = 0; j < this.boardSize; j++){
 				possibleLocations.push(i.toString() + "," + j.toString());

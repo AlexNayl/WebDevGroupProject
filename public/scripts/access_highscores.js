@@ -1,89 +1,49 @@
 export default {
-    async updateHighscoresMinesweeper(duration, boardSize, numBombs, username){
-        // Temporary will change from fetch to a submission and whatever later
-        console.log("Update Highscores:");
-        console.log('dur, user', duration, ",", username);
-        let url = new URL("http://localhost:4500/addhighscore");
-        url.searchParams.append("username", username);
-        url.searchParams.append("game", "minesweeper");
-        url.searchParams.append("score", minesweeperHighScore(duration, boardSize, numBombs));
-        try{
-            let response = await fetch(url);
-            if (response.ok){
-                console.log(response);
-            }else{
-                throw response;
-            }
-        }catch(e){
-            console.error("Error fetching!\n", e);
-        }
-	},
-	
-	async updateHighscoresSnake(score, username) {
-		let url = new URL("http://localhost:4500/addhighscore");
-        url.searchParams.append("username", username);
-        url.searchParams.append("game", "snake");
-        url.searchParams.append("score", score);
-        try{
-            let response = await fetch(url);
-            if (response.ok){
-                console.log(response);
-            }else{
-                throw response;
-            }
-        }catch(e){
-            console.error("Error fetching!\n", e);
-        }
-	},
-
+    /**
+     * Name: updateHighscores
+     * Description: Sends a get request to the server, sending a new highscore
+     * Return: None
+    */
     async updateHighscores(score, username, game){
+        // Create the URL based on information about the new highscore
         let url = new URL("http://localhost:4500/addhighscore");
         url.searchParams.append("username", username);
         url.searchParams.append("game", game);
         url.searchParams.append("score", score);
         try{
             let response = await fetch(url);
-            if (response.ok){
-                console.log(response);
-            }else{
+            if (!response.ok){
                 throw response;
             }
         }catch(e){
-            console.error("Error fetching!\n", e);
+            console.error("Error sending highscore!\n", e);
         }
     },
 
-	async updateHighscoresStacker(score, username) {
-		let url = new URL("http://localhost:4500/addhighscore");
-        url.searchParams.append("username", username);
-        url.searchParams.append("game", "stacker");
-        url.searchParams.append("score", score);
-        try{
-            let response = await fetch(url);
-            if (response.ok){
-                console.log(response);
-            }else{
-                throw response;
-            }
-        }catch(e){
-            console.error("Error fetching!\n", e);
-        }
-	},
-
+    /*
+     * Name: getHighScores
+     * Description: Gets HighScores from server
+     * Return: Array of user data
+    */
     async getHighScores(){
+        // Try getting highscores else throw error
         try{
             let response = await fetch("http://localhost:4500/gethighscores");
             if (response.ok){
-                console.log("Got Highscores!");
                 return (await response.json()).sort((hs1, hs2) => hs1["user_id"] < hs2["user_id"]);
             }else{
                 throw response;
             }
         }catch(e){
-            console.error("Error fetching!\n", e);
+            console.error("Error getting highscores!\n", e);
             return [];
         }
     },
+    /*
+     * Name: getTopHighScores
+     * Description: Gets all high scores and then filters down to a set limit. Used for making the graphs
+     * Return: Array of highscore data
+    */
     async getTopHighScores(game, limit){
         let hs = await this.getHighScores();
         // if errror or empty
@@ -98,16 +58,5 @@ export default {
         }
 
         return hs;
-    },
-    // Needed to solve 'accessHighscores' is defined but never used
-    async doNothing(){
-        console.log("Nothing")
     }
-}
-
-function minesweeperHighScore(duration, boardSize, numBombs){
-    const MAX_SCORE_DURATION = 1000; // Max duration after which score is not affected
-    const SCORE_DURATION_COEFFICIENT = 1000;
-    let score = Math.ceil(numBombs / boardSize * Math.max(1, (MAX_SCORE_DURATION - duration) * SCORE_DURATION_COEFFICIENT));
-    return score;
 }

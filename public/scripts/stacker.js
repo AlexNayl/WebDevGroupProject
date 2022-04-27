@@ -64,7 +64,7 @@ export default class Stacker {
 		if (this.posy < 0) {
 			this.running = false;
 			this.vuePage.running = false;
-			accessHighscores.updateHighscoresStacker(this.vuePage.score, prompt("Enter a name:"));
+			accessHighscores.updateHighscores(this.vuePage.score, prompt("Enter a name:", "stacker"));
 			this.reset();
 		}
 	}

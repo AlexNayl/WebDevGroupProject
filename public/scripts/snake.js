@@ -34,7 +34,7 @@ export default class Snake {
 		this.vuePage.running = false;
 		if (this.vuePage.score > 0) {
 			console.log("prompting")
-			accessHighscores.updateHighscoresSnake(this.vuePage.score, prompt("Enter a name:"));
+			accessHighscores.updateHighscores(this.vuePage.score, prompt("Enter a name:"), "snake");
 		}
 		this.tail = [];
 		this.x = Math.floor(this.width / 2);
