@@ -294,7 +294,7 @@ export class WordSearch{
                 }
                 
                 if (!this.lastCell) { this.lastCell = this.findCell(s.mouseX, s.mouseY); }
-                let nextCell = this.findCell(this.mouseX, this.mouseY);
+				let nextCell = this.findCell(s.mouseX, s.mouseY);
                 
                 if (nextCell) { this.currentCell = nextCell; }
                 this.currentSelection = this.findSelection();
