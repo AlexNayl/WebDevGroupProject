@@ -8,7 +8,9 @@
  *  ex: SAMA = Size A Matrix A => Size = 8x8, Matrix = variant A
  *  ex: SAMAW = list of words in size A variant A
  */
-import p5 from 'p5';
+
+import p5 from "p5";
+
 /*
 const SAMA = [
     ['A', 'R', 'V', 'S', 'C', 'U', 'O', 'H'],
@@ -185,6 +187,113 @@ export class WordSearch{
         // I don't know the origin for these
         this.wordsFound = [];
         this.updateBoard();
+
+        const sketch = (s) => {
+            s.setup = () => {
+                s.createCanvas(400, 400).parent("game");
+            }
+
+            s.draw = () => {
+                s.clear();
+        
+                this.displayBackground();
+                this.display();
+                this.checkMouse();
+            }
+
+            this.displayBackground = () => {
+                s.noStroke();
+                s.background(255, 146, 37);
+            }
+
+            this.display = () => {
+                this.displayMatrix();
+                this.displaySelection();
+                this.displayWords();
+            }
+
+            this.displayMatrix = () => {
+                s.push();
+                
+                s.textAlign(s.CENTER, s.CENTER);
+                
+                for (var row = 0; row < this.activeMatrix.length; row++) {
+                    var activeRow = this.activeMatrix[row];
+                    
+                    for (var col = 0; col < activeRow; col++) {
+                        var character = activeRow[col];
+                        
+                        var x = matX + col * cellDims;
+                        var y = matY + row * cellDims;
+                        
+                        s.stroke(0);
+                        
+                        // set colour of block:
+                        // if characters are highlighted, highlight colour is Fuchsia
+                        // if is a word, colour set to green
+                        // if not a word, turns back to white
+                        var colour = this.isSelected(row, col) ? "Fuchsia" : (this.foundCell(row, col) ? "Lime" : "White");
+                        s.fill(colour);
+                        s.rect(x, y, cellDims, cellDims);
+                        
+                        s.noStroke();
+                        s.fill(0);
+                        s.text(character, x + cellDims / 2, y + cellDims / 2);
+                    
+                    }
+                }
+                
+                s.pop();
+            }
+
+            this.displaySelection = () => { 
+                var txt = this.selectedWord();
+                
+                // if there is no selected word, return
+                if (!txt) { return; }
+                
+                s.push();
+                s.noStroke();
+                s.fill(0);
+                s.textSize(20);
+                s.text(txt, matX, matY + (this.rows + 1) * cellDims);
+                s.pop(); 
+            }
+
+            this.displayWords = () => { 
+                s.push();
+                s.noStroke();
+                
+                for (var index = 0; index < this.activeWords.length; index++) {
+                    
+                    s.fill(this.foundWord(this.activeWords[index]) ? "Gray" : "White");
+                    s.text(this.activeWords[index], 30, matY + 20 + index * 50);
+                    
+                }
+                
+                s.pop();
+            }
+
+            this.checkMouse = () => {
+                // if mouse isn't pressed
+                if (!s.mouseIsPressed) {
+                    this.validateSelection();
+                    
+                    this.lastCell = null;
+                    this.currentCell = null;
+                    this.currentSelection = null;
+                    return;
+                }
+                
+                if (!this.lastCell) { this.lastCell = this.findCell(s.mouseX, s.mouseY); }
+                var nextCell = this.findCell(this.mouseX, this.mouseY);
+                
+                if (nextCell) { this.currentCell = nextCell; }
+                this.currentSelection = this.findSelection();
+            }
+        };
+
+        this.sketch = new p5(sketch);
     }
 
     updateBoard() {
@@ -198,41 +307,9 @@ export class WordSearch{
 
     enter() {
         this.wordsFound = [];
-     }
+    }
      
-    loop() {
-        p5.clear();
-        
-        this.displayBackground();
-        this.display();
-        this.checkMouse();
-     }
-     
-     displayBackground() {
-        p5.noStroke();
-        p5.background(255, 146, 37);
-     }
-     
-     checkMouse() {
-         
-         // if mouse isn't pressed
-        if (!p5.mouseIsPressed) {
-            this.validateSelection();
-            
-            this.lastCell = null;
-            this.currentCell = null;
-            this.currentSelection = null;
-            return;
-        }
-        
-        if (!this.lastCell) { this.lastCell = this.findCell(p5.mouseX, p5.mouseY); }
-        var nextCell = this.findCell(this.mouseX, this.mouseY);
-        
-        if (nextCell) { this.currentCell = nextCell; }
-        this.currentSelection = this.findSelection();
-     }
-     
-     validateSelection() {
+    validateSelection() {
         
         var word = this.selectedWord();
         
@@ -252,9 +329,9 @@ export class WordSearch{
             this.over = true;
         }
      
-     }
+    }
 
-     findCell(x, y) {
+    findCell(x, y) {
         var colIndex = Math.floor((x - matX) / cellDims);
         var rowIndex = Math.floor((y - matY) / cellDims);
         
@@ -263,52 +340,10 @@ export class WordSearch{
         
         // if there are valid indices, return the row and column
         return { "row": this.row, "col": this.col};
-     }
+    }
      
-     display() {
-        this.displayMatrix();
-        this.displaySelection();
-        this.displayWords();
-     }
-     
-     displayMatrix() {
-         
-        p5.push();
-        
-        p5.textAlign(p5.CENTER, p5.CENTER);
-        
-        for (var row = 0; row < this.activeMatrix.length; row++) {
-            var activeRow = this.activeMatrix[row];
-            
-            for (var col = 0; col < activeRow; col++) {
-                var character = activeRow[col];
-                
-                var x = matX + col * cellDims;
-                var y = matY + row * cellDims;
-                
-                p5.stroke(0);
-                
-                // set colour of block:
-                // if characters are highlighted, highlight colour is Fuchsia
-                // if is a word, colour set to green
-                // if not a word, turns back to white
-                var colour = this.isSelected(row, col) ? "Fuchsia" : (this.foundCell(row, col) ? "Lime" : "White");
-                p5.fill(colour);
-                p5.rect(x, y, cellDims, cellDims);
-                
-                p5.noStroke();
-                p5.fill(0);
-                p5.text(character, x + cellDims / 2, y + cellDims / 2);
-            
-            }
-        }
-        
-        p5.pop();
-        
-     }
-     
-     // return the selected word
-     selectedWord() {
+    // return the selected word
+    selectedWord() {
         
         // if there is no current selection, return blank
         if (!this.currentSelection) { return ""; }
@@ -319,41 +354,9 @@ export class WordSearch{
         
         return txt;
         
-     }
+    }
      
-     displaySelection() { 
-     
-        var txt = this.selectedWord();
-        
-        // if there is no selected word, return
-        if (!txt) { return; }
-        
-        p5.push();
-        p5.noStroke();
-        p5.fill(0);
-        p5.textSize(20);
-        p5.text(txt, matX, matY + (this.rows + 1) * cellDims);
-        p5.pop();
-     
-     }
-     
-     displayWords() { 
-        
-        p5.push();
-        p5.noStroke();
-        
-        for (var index = 0; index < this.activeWords.length; index++) {
-            
-            p5.fill(this.foundWord(this.activeWords[index]) ? "Gray" : "White");
-            p5.text(this.activeWords[index], 30, matY + 20 + index * 50);
-            
-        }
-        
-        p5.pop();
-     
-     }
-     
-     findSelection() {
+    findSelection() {
      
         // if there is no last cell or current cell, return null
         if (!this.lastCell || !this.currentCell) { return null; }
@@ -362,9 +365,9 @@ export class WordSearch{
         // if hSelection is null, run vSelection, if not null, end;
         return this.horizontalSelection() || this.verticalSelection() || this.diagonalSelection();
      
-     }
+    }
      
-     horizontalSelection() {
+    horizontalSelection() {
      
         // if either last cell or current cell are null, return null
         if (!this.lastCell || !this.currentCell) { return null; }
@@ -387,9 +390,9 @@ export class WordSearch{
         
         return characterArray;
      
-     }
+    }
      
-     verticalSelection() {
+    verticalSelection() {
      
         // if either last cell or current cell are null, return null
         if (!this.lastCell || !this.currentCell) { return null; }
@@ -413,9 +416,9 @@ export class WordSearch{
         
         return characterArray;
      
-     }
+    }
      
-     diagonalSelection() {
+    diagonalSelection() {
      
         if (!this.lastCell || !this.currentCell) { return null; }
         
@@ -437,9 +440,9 @@ export class WordSearch{
         
         }
      
-     }
+    }
      
-     isSelected(row, col) {
+    isSelected(row, col) {
      
         if (!this.currentSelection) { return false; }
         
@@ -451,11 +454,11 @@ export class WordSearch{
         
         return false;
      
-     }
+    }
      
-     addFound(word, cells) { this.wordsFound.push( { word: word, cells: cells } ); }
+    addFound(word, cells) { this.wordsFound.push( { word: word, cells: cells } ); }
      
-     foundCell(row, col) {
+    foundCell(row, col) {
      
         for (var value of this.wordsFound) {
         
@@ -469,5 +472,5 @@ export class WordSearch{
         
         return false;
         
-     }
+    }
 }
