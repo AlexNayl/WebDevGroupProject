@@ -467,7 +467,9 @@ export class WordSearch{
         while (row != this.currentCell.row + dVertical && col != this.currentCell.col + dHorizontal) {
         
             let character = this.activeMatrix[row][col];
-            characterArray.push ( { "row": row, "col": col, "character": character } );
+			characterArray.push({ "row": row, "col": col, "character": character });
+			row += dVertical;
+			col += dHorizontal;
         
         }
      
