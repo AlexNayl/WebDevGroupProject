@@ -18,6 +18,26 @@ start cmd /c node node_server.js ^& pause && start cmd /c npm run serve
 ```
 in the WebDevGroupProject folder
 
+## Locations of Important Files
+
+Database Interface - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/model)
+
+Database - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/data)
+
+Game Scripts & AJAX Query Script - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/public/scripts)
+
+Images - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/public/images)
+
+Stylesheets - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/public/stylesheets)
+
+Vue Components - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/src/components)
+
+Vue Views - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/src/views)
+
+Node JS Server - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/node_server.js)
+
+## Presentation - p5.js
+[Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/Presentation-p5js.pdf)
 
 ## How To Install Dependencies for Project
 Navigate to WebDevGroupProject and run command:
@@ -38,24 +58,3 @@ sqlite3 Version 5.0.3
 vue Version 3.2.32
 vue-router Version 4.0.3
 ```
-
-## Presentation - p5.js
-[Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/Presentation-p5js.pdf)
-
-## Locations of Important Files
-
-Database Interface - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/model)
-
-Database - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/data)
-
-Game Scripts & AJAX Query Script - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/public/scripts)
-
-Images - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/public/images)
-
-Stylesheets - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/public/stylesheets)
-
-Vue Components - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/src/components)
-
-Vue Views - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/src/views)
-
-Node JS Server - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/node_server.js)
