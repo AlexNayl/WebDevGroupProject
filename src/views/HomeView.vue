@@ -31,6 +31,14 @@
 						<a href="/WordSearch" class="btn btn-primary">Play</a>
 					</div>
 				</div>
+				<div class="card col col-md-3">
+					<div class="card-body">
+						<img class="card-img-top" src="@/../public/images/stacker.png" alt="Stacker">
+						<h5 class="card-title">Stacker</h5>
+						<p class="card-text">Try to stack blocks on top of each other as high as you can. Try to be as perfect as you can, otherwise your new blocks will get smaller and smaller!</p>
+						<a href="/Stacker" class="btn btn-primary">Play</a>
+					</div>
+				</div>
 			</div>
 			<h2>Utilities</h2>
 			<div class="row d-flex justify-content-center">
