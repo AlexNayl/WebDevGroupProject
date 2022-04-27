@@ -45,10 +45,17 @@ vue-router Version 4.0.3
 ## Locations of Important Files
 
 Database Interface - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/model)
+
 Database - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/data)
+
 Game Scripts & AJAX Query Script - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/public/scripts)
+
 Images - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/public/images)
+
 Stylesheets - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/public/stylesheets)
+
 Vue Components - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/src/components)
+
 Vue Views - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/src/views)
+
 Node JS Server - [Link](https://github.com/AlexNayl/WebDevGroupProject/blob/main/node_server.js)
