@@ -1,32 +1,15 @@
 /* 
  * File: WordSearch.js
  * Function: main file containing key functions to run word search game
- * 
- * Functions contained: 
- * - Display:
- *  - Setup()
- *  - Draw()
- *  - displayBackground()
- *  - displayMatrix()
- *  - displaySelection()
- *  - displayWords()
- *  - checkMouse()
- * 
- * - Game Mechanics:
- *  - reset()
- *  - updateBoard()
- *  - genMatrix()
- *  - isOver()
- *  - enter()
- *  - 
- *
- * 
+ * Authors: Bencs, Tacaks, Zachary Windover, Samuel Jones
  */
 
 
 import p5 from "p5";
 import accessHighscores from './access_highscores.js';
 
+
+// defining arrays of possible puzzle words
 const WORD_SELECTIONS = 
 [
 ['SCOPE', 'let', 'HTML', 'COBOL', 'UTIL'],
@@ -108,32 +91,31 @@ export class WordSearch{
                 }
                 s.clear();
 
-                this.displayBackground(); // works
+                this.drawBackground(); // works
 
-                this.displayMatrix();
-                this.displaySelection();
-                this.displayWords(); // works
+                this.drawMatrix();
+                this.drawSelection();
+                this.drawWords(); // works
 
-                this.checkMouse();
+                this.inputHandler();
             }
 
             /*
-             * Name: displayBackground
+             * Name: drawBackground
              * Description: Changes the background colour for the display
              * Return: None
             */
             // used to display background colour
-            this.displayBackground = () => {
-                //s.background(255, 146, 37); // orange
+            this.drawBackground = () => {
                 s.background(255, 255, 255); // white
             }
 
             /*
-             * Name: displayMatrix
+             * Name: drawMatrix
              * Description: Displays the matrix on the screen
              * Return: None
             */   
-            this.displayMatrix = () => {
+            this.drawMatrix = () => {
                 s.push();
 
                 s.textAlign(s.CENTER, s.CENTER);
@@ -166,11 +148,11 @@ export class WordSearch{
             }
 
             /*
-             * Name: displaySelection
+             * Name: drawSelection
              * Description: Displays the selected words at the bottom
              * Return: None
             */
-            this.displaySelection = () => {
+            this.drawSelection = () => {
                 let txt = this.selectedWord();
 
                 // if there is no selected word, return
@@ -185,11 +167,11 @@ export class WordSearch{
             }
 
             /*
-             * Name: displayWords
+             * Name: drawWords
              * Description: Display the words to find
              * Return: None
             */
-            this.displayWords = () => {
+            this.drawWords = () => {
                 s.push();
                 s.noStroke();
 
@@ -208,7 +190,7 @@ export class WordSearch{
              * Description: Checks where the mouse is and selects cells
              * Return: None
             */
-            this.checkMouse = () => {
+            this.inputHandler = () => {
                 if (this.over){ return; }
                 // if mouse isn't pressed
                 if (!s.mouseIsPressed) {
@@ -451,15 +433,6 @@ export class WordSearch{
     isOver(){
         return this.over;
     }
-
-    /*
-     * Name: enter
-     * Description: Resets the words found array
-     * Return: None
-    */
-    //enter() {
-    //   this.wordsFound = [];
-    //}
 
     /*
      * Name: validateSelection
