@@ -1,3 +1,29 @@
+/* 
+ * File: WordSearch.js
+ * Function: main file containing key functions to run word search game
+ * 
+ * Functions contained: 
+ * - Display:
+ *  - Setup()
+ *  - Draw()
+ *  - displayBackground()
+ *  - displayMatrix()
+ *  - displaySelection()
+ *  - displayWords()
+ *  - checkMouse()
+ * 
+ * - Game Mechanics:
+ *  - reset()
+ *  - updateBoard()
+ *  - genMatrix()
+ *  - isOver()
+ *  - enter()
+ *  - 
+ *
+ * 
+ */
+
+
 import p5 from "p5";
 import accessHighscores from './access_highscores.js';
 
@@ -38,7 +64,7 @@ const WORD_SELECTIONS =
 ['RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'PURPLE', 'BROWN', 'BLACK', 'CYAN', 'MAGENTA',
                     'CRIMSON', 'LIME', 'INDIGO', 'MAROON', 'AMBER', 'SCARLET', 'MUSTARD'],
 ['PARASAUR', 'RAPTOR', 'BARYONYX', 'TROODON'],
-['LASAGNA', 'QUINOA', 'CHICKEN', 'LIME', 'PUTINE', 'BURRITO', 'FAJITAS', 'CORN',
+['LASAGNA', 'QUINOA', 'CHICKEN', 'LIME', 'POUTINE', 'BURRITO', 'FAJITAS', 'CORN',
                     'SHRIMP', 'MACARONS', 'YAKITORI', 'ONIGIRI']
 ]
 
@@ -213,7 +239,7 @@ export class WordSearch{
 
     /*
      * Name: reset
-     * Description: Resets the program
+     * Description: Resets the program including all necessary variables
      * Return: None
     */
     reset(){
@@ -419,8 +445,8 @@ export class WordSearch{
 
     /*
      * Name: isOver
-     * Description: Checks if the game has ended
-     * Return: None
+     * Description: makes over = true
+     * Return: Noen
     */
     isOver(){
         return this.over;
@@ -428,16 +454,18 @@ export class WordSearch{
 
     /*
      * Name: enter
-     * Description: Resets the words found
+     * Description: Resets the words found array
      * Return: None
     */
-    enter() {
-        this.wordsFound = [];
-    }
+    //enter() {
+    //   this.wordsFound = [];
+    //}
 
     /*
      * Name: validateSelection
-     * Description: Validates a selection of squares
+     * Description: On mouse release, checks if previously highlighted characters form a word
+     * If word is formed, checks if word is a part of the word list
+     * If user found word in list, will record word found and mark as found
      * Return: None
     */
     validateSelection() {
@@ -467,7 +495,7 @@ export class WordSearch{
     /*
      * Name: calculateHighscore
      * Description: Calculates the highscore of a game based on the duration and length of words
-     * Return: 
+     * Return: Score (int)
     */
     calculateHighscore(duration){
         const MAX_SCORE_DURATION = 1000; // Max duration after which score is not affected
