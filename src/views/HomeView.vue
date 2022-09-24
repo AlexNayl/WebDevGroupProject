@@ -14,7 +14,7 @@
 						<img class="card-img-top" src="@/../public/images/minesweeper.png" alt="MineSweeper">
 						<h5 class="card-title">MineSweeper</h5>
 						<p class="card-text">The simple, but addicting classic where you use deduction to find the location of all bombs, which make you lose the game when clicked.</p>
-						<a href="/MineSweeper" class="btn btn-primary">Play</a>
+						<router-link to="/MineSweeper" class="btn btn-primary">Play</router-link>
 					</div>
 				</div>
 				<!-- Snake -->
@@ -23,7 +23,7 @@
 						<img class="card-img-top" src="@/../public/images/snake.png" alt="Snake">
 						<h5 class="card-title">Snake</h5>
 						<p class="card-text">Use WASD or your Arrow Keys to move the snake around the play area. Collect food to grow your snake and increase your score, but don't run into your tail!</p>
-						<a href="/Snake" class="btn btn-primary">Play</a>
+						<router-link to="/Snake" class="btn btn-primary">Play</router-link>
 					</div>
 				</div>
 				<!-- Word Search -->
@@ -32,7 +32,7 @@
 						<img class="card-img-top" src="@/../public/images/wordsearch.png" alt="Word Search">
 						<h5 class="card-title">Word Search</h5>
 						<p class="card-text">Search for a set of words hidden in a matrix of random characters. Words can be backwards, diagonal, and they can cross each other.</p>
-						<a href="/WordSearch" class="btn btn-primary">Play</a>
+						<router-link to="/WordSearch" class="btn btn-primary">Play</router-link>
 					</div>
 				</div>
 				<!-- Stacker -->
@@ -41,7 +41,7 @@
 						<img class="card-img-top" src="@/../public/images/stacker.png" alt="Stacker">
 						<h5 class="card-title">Stacker</h5>
 						<p class="card-text">Try to stack blocks on top of each other as high as you can. Try to be as perfect as you can, otherwise your new blocks will get smaller and smaller!</p>
-						<a href="/Stacker" class="btn btn-primary">Play</a>
+						<router-link to="/Stacker" class="btn btn-primary">Play</router-link>
 					</div>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 					<div class="card-body">
 						<h5 class="card-title">High Scores</h5>
 						<p class="card-text">View a list of all users and their high scores per game.</p>
-						<a href="/HighScores" class="btn btn-primary">View</a>
+						<router-link to="/Highscores" class="btn btn-primary">View</router-link>
 					</div>
 				</div>
 				<!-- Graph -->
@@ -61,7 +61,7 @@
 					<div class="card-body">
 						<h5 class="card-title">Graph</h5>
 						<p class="card-text">View a graph of all high scores per game.</p>
-						<a href="/ScoreVisualization" class="btn btn-primary">View</a>
+						<router-link to="/SoreVisualization" class="btn btn-primary">View</router-link>
 					</div>
 				</div>
 			</div>

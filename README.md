@@ -1,3 +1,5 @@
+## Live Version [Here](https://alexnayl.github.io/WebDevGroupProject/)
+
 # WebDevGroupProject
 
 | Group Member Name | GitHub Username (GitHub URL)|
@@ -18,6 +20,10 @@ start cmd /c node node_server.js ^& pause && start cmd /c npm run serve
 ```
 in the WebDevGroupProject folder
 Then access the application by entering localhost:8080 in your browser URL
+
+## How to Deploy to Github Pages
+
+Run command `npm run deploy`
 
 ## Locations of Important Files
 

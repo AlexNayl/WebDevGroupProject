@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "npm run build && git add dist/. && git commit -m 'deploy' && git subtree push --prefix dist origin gh-pages && git push"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.5",
